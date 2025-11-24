@@ -1,0 +1,117 @@
+@import url("colors.css");
+@import url('https://fonts.googleapis.com/css2?family=Asimovian&family=Iceland&family=WDXL+Lubrifont+JP+N&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html{height: 100%;}
+
+body{
+    background-color: var(--color-7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-container{
+    width: 50%;
+    height: 75%;
+    background-color: var(--color-1);
+    border: 20px solid var(--color-3);
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    font-family: "iceland", sans-serif;
+}
+
+.box-container2{
+    height: 90%;
+}
+
+.box-container h1{
+    font-family: "Asimovian", sans-serif;
+    font-size: clamp(1.2vw, 3.5vw, 5vw);
+    color: var(--color-7);
+}
+
+.form-container{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    font-size: clamp(1vw, 2vw, 2.5vw);
+    color: var(--color-9);
+}
+
+.form-container input[type="email"], .form-container input[type="password"], .form-container input[type="text"]{
+    min-height: 3.5vh;
+    background-color: var(--color-7);
+    font-size: clamp(1vw, 2vw, 2.5vw);
+    font-family: inherit;
+    transition: background-color .5s steps(5), border-bottom-color .5s steps(5);
+}
+
+.form-container input[type="email"]:hover, .form-container input[type="password"]:hover,
+.form-container input[type="email"]:focus, .form-container input[type="password"]:focus,
+.form-container input[type="email"]:valid, .form-container input[type="password"]:valid,
+.form-container input[type="text"]:hover, .form-container input[type="text"]:focus,
+.form-container input[type="text"]:valid{
+    outline: 0;
+    min-height: 3.5vh;
+    background-color: var(--color-9);
+    border-bottom: 7px solid var(--color-7);
+}
+
+.form-container input[type="submit"]{
+    align-self: center;
+    min-height: 5vh;
+    width: 50%;
+    background-color: var(--color-8);
+    border: 7px solid var(--color-3);
+    font-size: clamp(1vw, 1.25vw, 1.5vw);
+    font-family: inherit;
+    transition: transform .1s steps(3);
+    transition: background-color 0.1s steps(1);
+}
+
+.form-container input[type="submit"]:hover, .form-container input[type="submit"]:focus{
+    cursor: pointer;
+    transform: scale(1.1);  
+    background-color: var(--color-9);
+}
+
+.message{
+    font-size: clamp(1vw, 1.25vw, 1.5vw);
+    color: var(--color-7);
+}
+
+.message a{color: var(--color-9)}
+.message a:visited{color: var(--color-4)}
+
+.form-container select {
+    min-height: 3.5vh;
+    background-color: var(--color-7);
+    font-size: clamp(1vw, 2vw, 2.5vw);
+    font-family: inherit;
+    border: none;
+    border-bottom: 7px solid transparent;
+    transition: background-color .5s steps(5), border-bottom-color .5s steps(5);
+}
+
+.form-container select:hover,
+.form-container select:focus,
+.form-container select:valid {
+    outline: 0;
+    background-color: var(--color-9);
+    border-bottom: 7px solid var(--color-7);
+    cursor: pointer;
+}

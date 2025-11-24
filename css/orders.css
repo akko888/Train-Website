@@ -1,0 +1,287 @@
+@import url("colors.css");
+@import url('https://fonts.googleapis.com/css2?family=Asimovian&family=Iceland&family=WDXL+Lubrifont+JP+N&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{background-color: var(--color-7);}
+
+
+body::before{
+    content: "";
+    display: block;
+    height: 3.125rem;
+}
+
+.viewport{
+    display: flex;
+    font-family: "iceland", sans-serif;
+    padding: 3.125rem;
+}
+
+.menu-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5625rem;
+    min-width: 12.5%;
+}
+
+.item{
+    padding: .3125rem;
+    overflow: hidden;
+    background-color: var(--color-1);
+    border: .3125rem solid var(--color-6);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: .625rem;
+
+    font-family: inherit;
+    font-size: max(2vw, 1vw);
+    color: var(--color-7);
+
+    transition: transform .1s steps(3);
+    transition: background-color 0.1s steps(1);
+}
+
+.item:hover, .item:focus, .item:active{
+    background-color: var(--color-3);
+    transform: scale(1.2);
+}
+
+.item img{
+    height: max(10vh, .625rem);
+    width: max(10vh, 1.25rem);
+}
+
+.main-content{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: .9375rem;
+    flex: 1;
+    padding: 3.125rem;
+}
+
+.steps{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5625rem;
+}
+
+#menuItems, #menuSidebar, #confirmation, #extraInfo, #finalStep{display: none;}
+
+.steps .step-title h1{
+    font-size: clamp(2vw, 3.5vw, 6vw);
+    color: var(--color-1)
+}
+
+.progress-container{
+    display: none;
+    width: 100%;
+    height: 1.25rem;
+    background: var(--color-9);
+    border: .1875rem solid var(--color-6);
+    overflow: hidden;
+}
+
+.progress-bar{
+    height: 3.125rem;
+    background: var(--color-1);
+    width: 0%;
+    transition: width steps(5) .5s;
+}
+
+.menu-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: .9375rem;
+}
+
+.menu-item{
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    background-color: var(--color-1);
+    color: var(--color-7);
+    border: .3125rem solid var(--color-6);
+    gap: 1.25rem;
+    font-size: clamp(.5vh, 3vh, 5vh);
+}
+
+.menu-button{
+    overflow: hidden;
+    height: max(.125rem, 3.125rem);
+    width: max(.125rem, 6.25rem);
+    font-size: clamp(.5vh, 3vh, 5vh);
+    font-family: inherit;
+    padding: .3125rem;
+    border: .125rem solid var(--color-7);
+    background-color: var(--color-3);
+    color: var(--color-7);
+
+    transition: transform .1s steps(3);
+    transition: background-color 0.1s steps(1);
+}
+
+.menu-button:hover, .menu-button:focus{
+    transform: scale(1.1);
+    background-color: var(--color-1);
+}
+
+.car-list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6.25rem;
+}
+
+.car-item{
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    background-color: var(--color-6);
+    color: var(--color-1);
+    border: .3125rem solid var(--color-1);
+    gap: 1.25rem;
+    font-size: clamp(1vh, 3vh, 5vh);
+}
+
+.btn-delete{
+    overflow: hidden;
+    height: max(4vh, .625rem);
+    width: max(4vw, .625rem);
+    border: .125rem solid var(--color-7);
+    background-color: var(--color-1);
+
+    transition: transform .1s steps(3);
+    transition: background-color 0.1s steps(1);
+}
+
+.btn-delete img{
+    max-height: 2.1875rem;
+    max-width: 2.1875rem;
+}
+
+.btn-delete:hover, .btn-delete:focus{
+    transform: scale(1.1);
+    background-color: var(--color-3);
+}
+
+.dataForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .3125rem;
+    font-size: clamp(2vw, 2.5vw, 3vw);
+}
+
+.dataForm h3{font-size: (2vw, 2.5vw, 3vw);}
+
+.dataForm input[type="text"]{
+    padding: 0 .625rem;
+    width: 30%;
+    height: 5vh;
+    font-size: 50%;
+    font-family: inherit;
+    background-color: var(--color-6);
+    border: none;
+    transition: background-color .5s steps(5), border-bottom-color .5s steps(5);
+}
+
+.dataForm input[type="text"]:hover, .dataForm input[type="text"]:focus, .dataForm input[type="text"]:valid{
+    outline: 0;
+    border-bottom: .375rem solid var(--color-1);
+    background-color: var(--color-8); 
+} 
+
+.custom-radio{
+  display: flex;
+  align-items: center;
+  gap: 1.5625rem;
+  margin: .375rem 0;
+  cursor: pointer;
+  font-size: clamp(2vw, 2.5vw, 3vw);
+}
+
+.custom-radio input[type="radio"]{
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.radio-mark{
+  height: 2.5rem;
+  width: 2.5rem;
+  border: .3125rem solid var(--color-1);
+  position: relative;
+  display: inline-block;
+  transition: border .5s steps(5);
+}
+
+.custom-radio input[type="radio"]:checked + .radio-mark::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.875rem;
+  height: 1.875rem;
+  background: var(--color-6);
+  transform: translate(-50%, -50%);
+}
+
+.custom-radio:hover .radio-mark{
+  border-color: var(--color-9);
+}
+
+#cardForm{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: .9375rem;
+    font-size: clamp(2vw, 2.5vw, 3vw); 
+}
+
+.options button{
+
+    height: auto;
+    width: 25%;
+    padding: .625rem;
+    background-color: var(--color-1);
+    border: .3125rem solid var(--color-6);
+    font-size: clamp(.5vh, 2.5vh, 5vh);
+    font-family: inherit;
+    color: var(--color-7);
+
+    transition: transform .1s steps(3);
+    transition: background-color 0.1s steps(1);
+}
+
+.options #prevBtn{display: none;}
+
+.options button:hover{
+    transform: scale(1.1);
+    background-color: var(--color-3);
+}
+
+#finalStep a{
+    align-self: center;
+    font-size: 70px;
+    color: var(--color-3);
+    text-decoration: none;
+}
+
+#finalStep a:hover{
+    transform: scale(1.1);
+    color: var(--color-9);
+}

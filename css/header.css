@@ -1,0 +1,88 @@
+@import url("colors.css");
+@import url('https://fonts.googleapis.com/css2?family=Asimovian&family=Iceland&family=WDXL+Lubrifont+JP+N&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{background-color: var(--color-7);}
+
+body::before{
+    content: "";
+    display: block;
+    height: 3.125rem;
+}
+
+.site-header{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(.625rem, 5vw, 9.375rem);
+    min-height: 6.25rem;
+    font-family: "Asimovian", sans-serif;
+    padding: 0 clamp(.625rem, 7vw, 9.375rem);
+    transition: background-color .5s ease-out;
+}
+
+.site-title{
+    background-color: var(--color-8);
+
+    padding: .3125rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.5625rem;
+
+    border: .3125rem solid var(--color-3);
+    color: var(--color-3);
+}
+
+.site-title img{
+    height: 4.6875rem;
+    width: 4.6875rem;
+}
+
+.navbar{
+    background-color: var(--color-8);
+
+    padding: 15px; 
+    margin-left: auto;
+    border: .3125rem solid var(--color-3); 
+}
+
+.navbar ul{
+    list-style-type: none;
+    display: flex;
+    gap: 3.125rem;
+    font-size: 1.875rem;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar a{
+    text-decoration: none;
+    color: var(--color-1);
+}
+
+.highlight a{
+    color: var(--color-3);
+}
+
+.login-link{
+    display: inline-block;
+}
+
+.login-link img{
+    background-color: var(--color-8);
+    border: .3125rem solid var(--color-3); 
+
+    height: 4.6875rem;
+    width: 4.6875rem;
+    display: block;
+}

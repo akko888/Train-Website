@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Sushi Neko</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="Imgs/svg+xml" href="../../Imgs/headIcon.svg">
+        <link rel="stylesheet" href="../../css/orders.css">
+        <link rel="stylesheet" href="../../css/header.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="site-title">
+                <img src="../../Imgs/cat.png" alt="No image">
+                Sushi Neko
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="../home/sushi.html">Home</a></li>
+                    <li class="highlight"><a href="orders.html">Orders</a></li>
+                    <li><a href="../subsidiaries/subsidiaries.html">Subsidiaries</a></li>
+                </ul>
+            </nav>
+            <a href="../logIn/logIn.html" class="login-link">
+                <img src="../../Imgs/logInIcon.svg" alt="No image">
+            </a>
+        </header>
+        <div class="viewport">
+
+            <!-- Sidebar (Only Step 1)-->
+            <aside class="menu-wrapper" id="menuSidebar">
+                <button class="item" data-category="Sushi">
+                    <img src="../../Imgs/sushiMenu.png" alt="No image">
+                    Sushi
+                </button>
+                <button class="item" data-category="Ramen">
+                    <img src="../../Imgs/ramenMenu.png" alt="No image">
+                    Ramen 
+                </button>
+                <button class="item" data-category="Onigiri">
+                    <img src="../../Imgs/onigiriMenu.png" alt="No image">
+                    Onigiri
+                </button>
+                <button class="item" data-category="Drinks">
+                    <img src="../../Imgs/drinkMenu.png" alt="No image">
+                    Drinks
+                </button>
+            </aside>
+            <main class="main-content">
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+
+                <!-- Step 0 -->
+                <div class="steps" id="orderStart">
+                    <div class="step-title"><h1>Do you want to start an order?<br>
+                    /ᐠ - ˕ -マ ᶻ 𝗓 𐰁</h1></div>
+                </div>
+
+                <!-- Step 1 -->
+                <div class="steps" id="menuItems">
+                    <div class="step-title"><h1 id="menuTitle">Select your the kind of food you want!
+                    <br> ≽ ^⎚ ˕ ⎚^ ≼</h1></div>
+                    <div class="menu-grid" id="menuGrid"></div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="steps" id="confirmation">
+                    <div class="step-title"><h1>Your order 🥔 ฅ≽(•⩊ •マ≼: </h1></div>
+                    <div class="car-list" id="carList"></div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="steps" id="extraInfo">
+                    <div class="step-title"><h1>Let's finish this order 🐈‍⬛ྀི</h1></div>
+                    <form method="post" class="dataForm" id="dataForm">
+                        Name of your order: <input type="text" name="orderName" required>
+                        Direction: <input type="text" name="orderDirection" required>
+                        <br>
+                        <h3>Type of order</h3>
+                        <label class="custom-radio">
+                            PickUp <input type="radio" name="typeOrder" value="pickUp" required>
+                            <span class="radio-mark"></span>
+                        </label>
+                        <label class="custom-radio">
+                            TakeAway <input type="radio" name="typeOrder" value="takeAway" required>
+                            <span class="radio-mark"></span>
+                        </label>
+                        <br>
+                        <h3>Choose Payment Method</h3>
+                        <label class="custom-radio">
+                            Card <input type="radio" name="pay" value="card" required>
+                            <span class="radio-mark"></span>
+                        </label>
+                        <label class="custom-radio">
+                            Cash <input type="radio" name="pay" value="cash" required>
+                            <span class="radio-mark"></span>
+                        </label>
+
+                        <div id="cardForm">
+                            Card Number: <input type="text" placeholder="0000 0000 0000 0000" required>
+                            Expiration: <input type="text" placeholder="MM/YY" required>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="steps" id="finalStep">
+                    <div class="step-title"><h1>Congratulations!! Your order has been submitted!!<br>
+                    ദ്ദി/ᐠ｡‸｡ᐟ\</h1></div>
+                    <a href="../home/sushi.html">Go back home</a>
+                </div>
+
+                <!-- Options Menu -->
+                <div class="options" id="options">
+                    <button id="prevBtn">Back</button>
+                    <button id="nextBtn">Next</button>
+                </div>
+            </main>
+        </div>
+        <script src="orders.js" defer></script>
+        <script src="../../js/header.js" defer></script>
+    </body>
+</html>
