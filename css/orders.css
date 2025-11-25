@@ -153,7 +153,16 @@ body::before{
     color: var(--color-1);
     border: .3125rem solid var(--color-1);
     gap: 1.25rem;
-    font-size: clamp(1vh, 3vh, 5vh);
+    font-size: clamp(1vh, 2.5vh, 5vh);
+}
+
+.total-price{
+    padding: .9375rem;
+    align-self: center;
+    background-color: var(--color-1);
+    font-size: clamp(1vh, 4vh, 5vh);
+    color: var(--color-9);
+    border: .625rem solid var(--color-4);
 }
 
 .btn-delete{

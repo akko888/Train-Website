@@ -18,7 +18,8 @@ body{
 
 .box-container{
     width: 50%;
-    height: 75%;
+    min-height: 75%;
+    height: auto;
     background-color: var(--color-1);
     border: 20px solid var(--color-3);
     overflow: hidden;
@@ -33,7 +34,8 @@ body{
 }
 
 .box-container2{
-    height: 90%;
+    min-height: 90%;
+    height: auto;
 }
 
 .box-container h1{

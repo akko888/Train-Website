@@ -1,20 +1,36 @@
 const menuItems = {
-    Sushi: [{name: "Salmon Nigiri"}, {name: "Tuna Nigiri"}, {name: "Shrimp Nigiri"}, {name: "California Roll"}, 
-            {name: "Spicy Tuna Roll"}, {name: "Philadelphia Roll"}, {name: "Unagi Nigiri"}, 
-            {name: "Tamago Nigiri"}, {name: "Rainbow Roll"}],
-    Ramen: [{name: "Shoyu Ramen"}, {name: "Tonkotsu Ramen"}, {name: "Miso Ramen"}, {name: "Shio Ramen"}, 
-            {name: "Spicy Ramen"},{name: "Curry Ramen"}, {name: "Tsukemen"}, {name: "Vegetable Ramen"}, 
-            {name: "Seafood Ramen"}],
-    Onigiri: [{name: "Salmon Onigiri"}, {name: "Tuna Mayo Onigiri"}, {name: "Umeboshi Onigiri"}, 
-              {name: "Kombu Onigiri"}, {name: "Okaka Onigiri"}, {name: "Tarako Onigiri"}, 
-              {name: "Chicken Teriyaki Onigiri"}, {name: "Spicy Salmon Onigiri"}, {name: "Seaweed Onigiri"}],
-    Drinks: [{name: "Green Tea"}, {name: "Ramune"}, {name: "Calpico"}, {name: "Coke"}, {name: "Iced Tea"}]
+    Sushi: {
+        price: 20,
+        items: 
+            [{name: "Salmon Nigiri"}, {name: "Tuna Nigiri"}, {name: "Shrimp Nigiri"},
+            {name: "California Roll"}, {name: "Spicy Tuna Roll"}, {name: "Philadelphia Roll"},
+            {name: "Unagi Nigiri"}, {name: "Tamago Nigiri"}, {name: "Rainbow Roll"}]
+    },
+    Ramen: {
+        price: 20,
+        items:
+            [{name: "Shoyu Ramen"}, {name: "Tonkotsu Ramen"}, {name: "Miso Ramen"},
+            {name: "Shio Ramen"}, {name: "Spicy Ramen"}, {name: "Curry Ramen"},
+            {name: "Tsukemen"}, {name: "Vegetable Ramen"}, {name: "Seafood Ramen"}]
+    },
+    Onigiri: {
+        price: 10,
+        items: 
+            [{name: "Salmon Onigiri"}, {name: "Tuna Mayo Onigiri"}, {name: "Umeboshi Onigiri"},
+            {name: "Kombu Onigiri"}, {name: "Okaka Onigiri"}, {name: "Tarako Onigiri"},
+            {name: "Chicken Teriyaki Onigiri"}, {name: "Spicy Salmon Onigiri"},
+            {name: "Seaweed Onigiri"}]
+    },
+    Drinks: {
+        price: 5,
+        items: 
+            [{name: "Green Tea"}, {name: "Ramune"}, {name: "Calpico"}, {name: "Coke"}, {name: "Iced Tea"}]
+    }
 };
 
 let car = [];
 let currentStep = 0;
 let orderStarted = false;
-
 
 document.querySelectorAll('.menu-wrapper button').forEach(function(btn){
     btn.addEventListener('click', function(){
@@ -28,9 +44,9 @@ function switchCategory(cat){
     const grid = document.getElementById('menuGrid');
     
     grid.innerHTML = '';
-    title.innerHTML = cat;
+    title.innerHTML = cat + ' ' + menuItems[cat].price + '$';
 
-    menuItems[cat].forEach(function(item){
+    menuItems[cat].items.forEach(function(item){
         const div = document.createElement('div');
         const btn = document.createElement('button');
         btn.textContent = 'Add'; 
@@ -42,7 +58,7 @@ function switchCategory(cat){
         div.appendChild(btn),
         
         btn.addEventListener('click', function(){
-            addToCart(item.name);
+            addToCart(item.name, menuItems[cat].price);
         });
 
         grid.appendChild(div);
@@ -50,10 +66,10 @@ function switchCategory(cat){
 }
 
 
-function addToCart(name){
+function addToCart(name, price){
     const exists = car.find(function(i){return i.name === name});
     if(exists){exists.qty++}
-    else{car.push({name, qty: 1});} 
+    else{car.push({name, price, qty: 1});} 
     
     alert(name + " added to cart!")
 }
@@ -72,18 +88,16 @@ document.querySelectorAll('.options button').forEach(function(btn){
 });
 
 function changeStep(direction){
-    const prevStep = currentStep;
     const newStep = currentStep + direction;
-    document.getElementById('prevBtn').style.display = (currentStep === 0 || currentStep === 1) ? 'none' : 'inline-block';
 
-    if(prevStep === 1 && newStep === 2){
+    if(currentStep === 1 && newStep === 2 || currentStep === 2 && newStep === 3){
         if(car.length === 0){
             alert('Your cart is empty. Add at least one item.');
             return;
         }
     }
 
-    if(prevStep === 3 && newStep === 4){
+    if(currentStep === 3 && newStep === 4){
         const form = document.getElementById('dataForm');
 
         if(!form.orderName.value.trim() || !form.orderDirection.value.trim()){
@@ -110,26 +124,18 @@ function changeStep(direction){
         }
     }
 
-    currentStep = newStep;
+    currentStep = Math.max(0, Math.min(newStep, 4));
 
-    if(prevStep === 0 && currentStep == 1){
-        orderStarted = true;
-    }
+    if(currentStep > 0) orderStarted = true;
+    if(currentStep === 4) orderStarted = false;
 
-    let nextText = 'Next';
-    if(currentStep === 0) nextText = 'Start';
-    if(currentStep === 3) nextText = 'Submit';
+    const nextBtn = document.getElementById('nextBtn');
+    if(currentStep === 0) nextBtn.innerText = 'Start';
+    else if(currentStep === 3) nextBtn.innerText = 'Submit';
+    else nextBtn.innerText = 'Next';
 
-    if(prevStep === 3 && currentStep === 4){
-        orderStarted = false;
-        submitOrder();
-    }
-
-    if(currentStep > 3){
-        currentStep = 4;
-    }
-
-    document.getElementById('nextBtn').innerText = nextText;
+    const prevBtn = document.getElementById('prevBtn');
+    prevBtn.style.display = (currentStep <= 1) ? 'none' : 'inline-block';
 
     if(currentStep == 2){
         loadCar();
@@ -146,6 +152,7 @@ function changeStep(direction){
     if(currentStep === 4){
         document.getElementsByClassName('progress-container')[0].style.display = 'none';
         document.getElementById('options').style.display = 'none';
+        submitOrder();
     }
     
     window.addEventListener('beforeunload', function(e){
@@ -162,6 +169,8 @@ function changeStep(direction){
 function loadCar(){
     const carList = document.getElementById('carList');
     carList.innerHTML = '';
+
+    let total = 0;
      
     car.forEach(function(item, index){
         const div = document.createElement('div');
@@ -174,11 +183,15 @@ function loadCar(){
             removeItem(index, item);
         });
 
-        div.innerHTML = '<span>' + item.name + ' (Quantity: ' + item.qty +')</span>';
+        total += item.price *  item.qty;
+
+        div.innerHTML = '<span>' + item.name + ' ' + item.price*item.qty + '$' + ' (Quantity: ' + item.qty +')</span>';
         div.appendChild(btndelete);    
 
         carList.appendChild(div);
     });
+
+    document.getElementById('totalPrice').innerHTML = 'Total: ' + total + '$'; 
 }
 
 function removeItem(i, it){
@@ -213,9 +226,11 @@ document.getElementsByName('pay').forEach(function(radioInput){
 function submitOrder(){
     const orderItems = car.map(item => ({
         name: item.name,
+        price: item.price,
         qty: item.qty
     }));
 
+    const total = car.reduce((sum, item) => sum + item.price * item.qty, 0);
     const form = document.getElementById('dataForm');
     const orderName = form.orderName.value;
     const direction = form.orderDirection.value;
@@ -232,7 +247,9 @@ function submitOrder(){
     }
 
     const finalOrder = {
-        items: orderItems,
+        items: 
+        orderItems,
+        total,
         orderName,
         direction,
         typeOrder,
