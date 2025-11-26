@@ -5,12 +5,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="Imgs/svg+xml" href="../../Imgs/headIcon.svg">
+        <link rel="stylesheet" href="../../css/errors.css">
         <link rel="stylesheet" href="../../css/logForms.css">
     </head>
     <body>
         <div class="box-container box-container2">
             <h1>Create Account</h1>
-            <form method="post" class="form-container">
+            <form method="post" class="form-container" id="registerForm">
                 Username: <input type="text" name="username" required>
                 Email: <input type="email" name="email" required>
                 Password: <input type="password" name="password" required>
@@ -30,5 +31,10 @@
             </div>
             <div class="message"><a href="../../index.html">Go back home</a></div>
         </div>
+        <div class="error-box" id="errorBox">
+        </div>
+        <div class="success-box" id="successBox">
+        </div>
+        <script src="../../js/signIn.js" defer></script>
     </body>
 </html>
