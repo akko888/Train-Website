@@ -9,7 +9,6 @@
 
 body{background-color: var(--color-7);}
 
-
 body::before{
     content: "";
     display: block;

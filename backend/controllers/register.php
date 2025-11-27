@@ -1,6 +1,7 @@
 <?php
     require_once __DIR__ . '/../config/config.php'; 
-    
+    session_start();
+
     header("Content-Type: application/json");
 
     $response = [
@@ -34,12 +35,21 @@
         $stmt -> bind_param("ssss", $username, $email, $hashed, $role);
 
         if($stmt->execute()){
+
+            $_SESSION['user'] = [
+                "id" => $connection->insert_id,
+                "username" => $username,
+                "email" => $email,
+                "role" => $role
+            ];
+
             $response["success"] = true;
-            $response["message"] = "User registered correctly, going back to home...";
+            $response["message"] = "User registered correctly, Redirecting...";
         }else{
             $response["errors"][] = "Error in the data base: " . $stmt->error;        
         }
 
+        $stmt->close();
         echo json_encode($response);
     }
 ?>

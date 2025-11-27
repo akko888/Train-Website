@@ -6,11 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="Imgs/svg+xml" href="../../Imgs/headIcon.svg">
         <link rel="stylesheet" href="../../css/logForms.css">
+        <link rel="stylesheet" href="../../css/errors.css">
     </head>
     <body>
         <div class="box-container">
             <h1>Log In</h1>
-            <form method=post class="form-container">
+            <form method=post class="form-container" id="logInForm">
                 Email: <input type="email" name="email" required>
                 Password: <input type="password" name="password" required>
                 <input type="submit" value="Log In">
@@ -21,5 +22,10 @@
             </div>
             <div class="message"><a href="../../index.html">Go back home</a></div>
         </div>
+        <div class="error-box" id="errorBox">
+        </div>
+        <div class="success-box" id="successBox">
+        </div>
+        <script src="../../js/logIn.js"></script>
     </body>
 </html>

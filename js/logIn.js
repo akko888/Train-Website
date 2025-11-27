@@ -8,12 +8,12 @@ fetch("../../backend/auth/auth_check.php", {
     }
 });
 
-document.getElementById('registerForm').addEventListener('submit', function(e){
+document.getElementById('logInForm').addEventListener('submit', function(e){
     e.preventDefault();
 
     const formData = new FormData(this);
 
-    fetch("../../backend/controllers/register.php", {
+    fetch("../../backend/controllers/logIn.php", {
         method: "POST",
         credentials: "include",
         body: formData
@@ -24,8 +24,8 @@ document.getElementById('registerForm').addEventListener('submit', function(e){
         const errorbox = document.getElementById('errorBox');
         const successbox = document.getElementById('successBox');
 
-        errorbox.innerHTML = '';
-        successbox.innerHTML = '';
+        errorbox.innerHTML = "";
+        successbox.innerHTML = "";
 
         if(!data.success){
             data.errors.forEach(err => {
@@ -46,4 +46,4 @@ document.getElementById('registerForm').addEventListener('submit', function(e){
             }, 1500);
         }
     });
-});
+}); 

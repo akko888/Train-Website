@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>User - Dashboard</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="Imgs/svg+xml" href="../../Imgs/headIcon.svg">
+        <link rel="stylesheet" href="../../css/header.css">
+        <link rel="stylesheet" href="../../css/dashboard.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="site-title">
+                <img src="../../Imgs/cat.png" alt="No image">
+                Sushi Neko
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../orders/orders.html">Orders</a></li>
+                    <li><a href="../subsidiaries/subsidiaries.html">Subsidiaries</a></li>
+                </ul>
+            </nav>
+            <a href="userDashboard.html" class="login-link">
+                <img src="../../Imgs/logInIcon.svg" alt="No image">
+            </a>
+        </header>
+        <main>
+            <section class="viewport-dashboard">
+                <div class="dashboard-grid">
+                    <div class="box welcome-box">
+                        Welcome back! <span id="username"></span> ฅ^ >ヮ<^₎
+                    </div>
+                    <div class="box info-box">
+                        <h2>Account Information</h2>
+                        <p>Username: <span id="usernameInfo"></span></p> 
+                        <p>Email: <span id="email"></span>
+                        <p>Role: <span id="role"></span></p>
+                        <button id="logOutBtn">Log out</button>
+                        <button id="deleteBtn">Delete account</button>
+                    </div>
+                    <div class="box order-box">
+                        <h2>Your Orders</h2>
+                        <ul id="order-list">
+                            <li>No orders yet... /ᐠ ╥ ˕ ╥マ</li>
+                        </ul>
+                    </div>
+                    <div class="box image-box">
+                        <img src="../../Imgs/userIconExample.jpg" alt="We can't find user icon...">
+                    </div>
+                </div>
+            </section>
+        </main>
+        <script src="../../js/header.js" defer></script>
+        <script src="../../js/userDashboard.js" defer></script>
+    </body>
+</html>
