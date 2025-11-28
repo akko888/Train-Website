@@ -1,5 +1,5 @@
 @import url("colors.css");
-@import url('https://fonts.googleapis.com/css2?family=Asimovian&family=Iceland&family=WDXL+Lubrifont+JP+N&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asimovian&family=DotGothic16&family=Jersey+10&display=swap');
 
 *{
     margin: 0;
@@ -37,7 +37,7 @@ body::before{
     background-color: var(--color-1);
     border: .9375rem solid var(--color-3);
     color: var(--color-7);
-    font-family: "Asimovian", sans-serif;
+    font-family: "Jersey 10", sans-serif;
     font-size: clamp(1vh, 5vh, 3rem);
     display: flex;
     flex-wrap: wrap;
@@ -57,7 +57,7 @@ body::before{
     background-color: var(--color-1);
     border: .9375rem solid var(--color-3);
     color: var(--color-8);
-    font-family: "iceland", sans-serif;
+    font-family: "Jersey 10", sans-serif;
     padding: 2rem;
 }
 
@@ -66,9 +66,9 @@ body::before{
     width: max(2vw, 8vw);
     align-self: center;
     background-color: var(--color-9);
-    border: 3px solid var(--color-3);
+    border: .1875rem solid var(--color-3);
     color: var(--color-3);
-    padding: 3px;
+    padding: .1875rem;
     font-size: clamp(.5vw, 1vw, 1.5rem);
     font-family: inherit;
     transition: transform .1s steps(3);
@@ -102,7 +102,7 @@ body::before{
 
 #order-list {
     list-style: none;
-    font-family: "iceland", sans-serif;
+    font-family: "Jersey 10", sans-serif;
     font-size: clamp(0.5rem, 3vh, 1.5rem);
 }
 

@@ -3,15 +3,15 @@
 .error-box{
     display: none;
     background-color: var(--color-9);
-    border: 2px solid var(--color-3);
-    padding: 10px;
+    border: .125rem solid var(--color-3);
+    padding: .625rem;
     color: var(--color-3);
 }
 
 .success-box{
     display: none;
     background-color: var(--color-9);
-    border: 2px solid var(--color-6);
-    padding: 10px;
+    border: .125rem solid var(--color-6);
+    padding: .625rem;
     color: var(--color-6);
 }

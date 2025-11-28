@@ -1,5 +1,5 @@
 @import url("colors.css");
-@import url('https://fonts.googleapis.com/css2?family=Asimovian&family=Iceland&family=WDXL+Lubrifont+JP+N&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asimovian&family=DotGothic16&family=Jersey+10&display=swap');
 
 *{
     margin: 0;
@@ -31,7 +31,7 @@ body{
     align-items: center;
     gap: 15px;
 
-    font-family: "iceland", sans-serif;
+    font-family: "Jersey 10", sans-serif;
 }
 
 .box-container2{
@@ -57,6 +57,7 @@ body{
 
 .form-container input[type="email"], .form-container input[type="password"], .form-container input[type="text"]{
     min-height: 3.5vh;
+    padding: .125rem;
     background-color: var(--color-7);
     font-size: clamp(1vw, 2vw, 2.5vw);
     font-family: inherit;

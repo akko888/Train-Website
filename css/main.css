@@ -1,5 +1,5 @@
 @import url("colors.css");
-@import url('https://fonts.googleapis.com/css2?family=Asimovian&family=Iceland&family=WDXL+Lubrifont+JP+N&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asimovian&family=DotGothic16&family=Jersey+10&display=swap');
 
 *{
     margin: 0;
@@ -53,7 +53,7 @@ body::before{
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    font-family: "iceland", "WDXL Lubrifont JP N", sans-serif;
+    font-family: "Jersey 10", "DotGothic16", sans-serif;
     text-align: center;
 
     border: .9375rem solid var(--color-3);
@@ -107,7 +107,7 @@ body::before{
     background-color: var(--color-3);
     border: .3125rem solid var(--color-1);
     color: var(--color-7);
-    font-family: "iceland", sans-serif;
+    font-family: "Jersey 10", sans-serif;
     font-size: clamp(1.25rem, 2vw, 2.1875rem);
     min-height: 3.125rem;
     min-width: 6.25rem;
@@ -139,7 +139,7 @@ button:hover, button:focus, button:active{
 }
 
 .menu ol{
-    font-family: "iceland", sans-serif;
+    font-family: "Jersey 10", sans-serif;
     font-size: clamp(.3125rem, 6vh, 1.875rem);
     color: var(--color-8);
 }
