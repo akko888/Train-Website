@@ -123,3 +123,75 @@ body::before{
     height: auto;
     object-fit: contain;
 }
+
+.formEdit{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.hidden{
+    display: none;
+}
+
+.form-content{
+    background-color: var(--color-1);
+    border: 1rem solid var(--color-3);
+    padding: 2rem;
+    width: clamp(15.625rem, 40vw, 31.25rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    font-family: "Jersey 10", sans-serif;
+    color: var(--color-8);
+    text-align: center;
+}
+
+.form-content h3{
+    font-family: "Asimovian", sans-serif;
+    color: var(--color-7);
+    font-size: clamp(1.2rem, 2.5vh, 2rem);
+    margin-bottom: .5rem;
+}
+
+
+.form-content input{
+    padding: .5rem;
+    border: .25rem solid var(--color-3);
+    background-color: var(--color-7);
+    font-family: "Jersey 10", sans-serif;
+    font-size: clamp(.7rem, 1.5vw, 2rem);
+    color: var(--color-1);
+    outline: none;
+}
+
+.form-content button, .form-content input[type="submit"]{
+    height: max(3vh, 4vh);
+    width: max(5vw, 10vw);
+    align-self: center;
+    background-color: var(--color-9);
+    border: .1875rem solid var(--color-3);
+    color: var(--color-3);
+    padding: .1875rem;
+    font-size: clamp(.5vw, 1vw, 1.2rem);
+    font-family: "Jersey 10", sans-serif;
+    transition: transform .1s steps(3);
+    transition: background-color 0.1s steps(1);
+}
+
+.form-content input[type="submit"]:hover,
+.form-content input[type="submit"]:focus,
+.form-content button:hover,
+.form-content button:focus{
+    cursor: pointer;
+    transform: scale(1.1);
+    background-color: var(--color-7);
+}

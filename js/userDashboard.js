@@ -45,3 +45,65 @@ document.getElementById('deleteBtn').addEventListener('click', async function(){
     })
     .catch(err => console.error(err));
 });
+
+document.getElementById('editBtn').addEventListener('click', function(){
+    document.getElementById('editFormBox').classList.remove("hidden");
+});
+
+document.getElementById('cancelEdit').addEventListener('click', function(){
+    document.getElementById('editFormBox').classList.add("hidden");
+});
+
+document.getElementById('changePasswordBtn').addEventListener('click', function(){
+    document.getElementById('passwordFormBox').classList.remove("hidden");
+});
+
+document.getElementById('cancelPassword').addEventListener('click', function(){
+    document.getElementById('passwordFormBox').classList.add("hidden");
+});
+
+document.getElementById('editForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    const res = await fetch("../../backend/controllers/updateData.php", {
+        method: "POST",
+        credentials: "include",
+        body: formData
+    })
+
+    const data = await res.json();
+    alert(data.message);
+
+    if(data.updated){
+        location.reload();
+    }
+});
+
+document.getElementById('passwordForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    
+    const newPass = formData.get("newPassword");
+    const repeat = formData.get("repeatPassword");
+
+    if(newPass !== repeat){
+        alert("New password do not match!");
+        return;
+    }
+
+    const res = await fetch("../../backend/controllers/changePassword.php", {
+        method: "POST",
+        credentials: "include",
+        body: formData
+    });
+
+    const data = await res.json();
+    alert(data.message);
+
+    if(data.changed){
+        document.getElementById("passwordFormBox").classList.add("hidden");
+    }
+});

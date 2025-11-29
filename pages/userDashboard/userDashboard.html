@@ -38,6 +38,8 @@
                         <p>Role: <span id="role"></span></p>
                         <button id="logOutBtn">Log out</button>
                         <button id="deleteBtn">Delete account</button>
+                        <button id="editBtn">Edit data</button>
+                        <button id="changePasswordBtn">Change Password</button>
                     </div>
                     <div class="box order-box">
                         <h2>Your Orders</h2>
@@ -46,8 +48,28 @@
                         </ul>
                     </div>
                     <div class="box image-box">
-                        <img src="../../Imgs/userIconExample.jpg" alt="We can't find user icon...">
+                        <img src="../../Imgs/userIconDefault.svg" alt="We can't find user icon...">
                     </div>
+                </div>
+                <div class="formEdit hidden" id="editFormBox">
+                    <form class="form-content" id="editForm" method="post">
+                        <h3>Edit Account Data</h3>
+                        New username: <input type="text" name="newUsername" required>
+                        New email: <input type="email" name="newEmail" required>
+
+                        <input type="submit" value="Save" id="saveEditBtn">
+                        <button type="button" id="cancelEdit">Cancel</button>
+                    </form>
+                </div>
+                <div class="formEdit hidden" id="passwordFormBox">
+                    <form class="form-content" id="passwordForm" method="post">
+                        Current password: <input type="password" name="currentPassword">
+                        New password: <input type="password" name="newPassword">
+                        Repeat new password: <input type="password" name="repeatPassword">
+
+                        <input type="submit" value="Change">
+                        <button type="button" id="cancelPassword">Cancel</button> 
+                    </form>
                 </div>
             </section>
         </main>
