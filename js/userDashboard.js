@@ -14,6 +14,45 @@ fetch("../../backend/auth/auth_check.php", {
     document.getElementById('role').innerHTML = data.user.role;
 });
 
+fetch("../../backend/controllers/getOrders.php", {
+    credentials: "include"
+})
+.then(res => res.json())
+.then(data => {
+    
+    const list = document.getElementById("orderList");
+    list.innerHTML = "";
+
+    if(!data.success){
+        list.innerHTML = '<li>We could not find your order /ᐠ ╥ ˕ ╥マ</li>';
+        return;
+    }
+
+    if(data.orders.length === 0){
+        list.innerHTML = '<li>No orders yet... /ᐠ ╥ ˕ ╥マ</li>';
+        return;
+    }
+
+    data.orders.forEach(function(order){
+        const li = document.createElement("li");
+        li.classList = "orders-displayed";
+
+        const itemNames = order.items.map(i => i.item_name + " x" + i.quantity).join(", ");
+
+        li.innerHTML = `
+            Order identified by #${order.order_id}<br>
+            Name: ${order.order_name}<br>
+            Type: ${order.order_type}<br>
+            Total: $${order.total_amount}<br>
+            Items: ${itemNames}<br>
+            <em>${order.created_at}</em>
+        `;
+
+        list.appendChild(li);
+    });
+})
+.catch(err => console.error(err)); 
+
 document.getElementById('logOutBtn').addEventListener('click', async function(){
     const response = await fetch("../../backend/controllers/logOut.php", {
         method: "POST",

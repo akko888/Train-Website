@@ -1,4 +1,5 @@
 <?php
+// Set the data from this file to your own data and change its name to "config.php"
 
 $server = "localhost";
 $user = "your_user";

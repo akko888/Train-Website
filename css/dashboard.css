@@ -100,10 +100,18 @@ body::before{
     font-size: clamp(1rem, 4vh, 2.5rem);
 }
 
-#order-list {
-    list-style: none;
+#orderList{
+    list-style: square;
     font-family: "Jersey 10", sans-serif;
     font-size: clamp(0.5rem, 3vh, 1.5rem);
+}
+
+.orders-displayed{
+    text-align: left;
+    background-color: var(--color-7);
+    color: var(--color-1);
+    padding: 5px;
+    border: 5px solid var(--color-1);
 }
 
 .image-box{

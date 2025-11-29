@@ -1,32 +1,31 @@
-const menuItems = {
-    Sushi: {
-        price: 20,
-        items: 
-            [{name: "Salmon Nigiri"}, {name: "Tuna Nigiri"}, {name: "Shrimp Nigiri"},
-            {name: "California Roll"}, {name: "Spicy Tuna Roll"}, {name: "Philadelphia Roll"},
-            {name: "Unagi Nigiri"}, {name: "Tamago Nigiri"}, {name: "Rainbow Roll"}]
-    },
-    Ramen: {
-        price: 20,
-        items:
-            [{name: "Shoyu Ramen"}, {name: "Tonkotsu Ramen"}, {name: "Miso Ramen"},
-            {name: "Shio Ramen"}, {name: "Spicy Ramen"}, {name: "Curry Ramen"},
-            {name: "Tsukemen"}, {name: "Vegetable Ramen"}, {name: "Seafood Ramen"}]
-    },
-    Onigiri: {
-        price: 10,
-        items: 
-            [{name: "Salmon Onigiri"}, {name: "Tuna Mayo Onigiri"}, {name: "Umeboshi Onigiri"},
-            {name: "Kombu Onigiri"}, {name: "Okaka Onigiri"}, {name: "Tarako Onigiri"},
-            {name: "Chicken Teriyaki Onigiri"}, {name: "Spicy Salmon Onigiri"},
-            {name: "Seaweed Onigiri"}]
-    },
-    Drinks: {
-        price: 5,
-        items: 
-            [{name: "Green Tea"}, {name: "Ramune"}, {name: "Calpico"}, {name: "Coke"}, {name: "Iced Tea"}]
+let menuItems = {};
+
+fetch("../../backend/auth/auth_check.php", {
+    credentials: "include"
+})
+.then(res => res.json())
+.then(data => {
+    if(!data.authenticated){
+        alert('You can not order without an account'); 
+        window.location.href = "../logIn/logIn.html"; 
     }
-};
+});
+
+
+fetch("../../backend/controllers/getMenu.php")
+.then(res => res.json())
+.then(data => {
+    
+    Object.keys(data).forEach(function(key){
+
+        const category = data[key];
+
+        menuItems[category.title] = {
+            price: category.price,
+            items: category.items.map(itemName => ({name: itemName}))
+        };
+    });
+});
 
 let car = [];
 let currentStep = 0;
@@ -247,8 +246,7 @@ function submitOrder(){
     }
 
     const finalOrder = {
-        items: 
-        orderItems,
+        items: orderItems,
         total,
         orderName,
         direction,
@@ -258,6 +256,22 @@ function submitOrder(){
         cardExpiration
     };
 
+    fetch("../../backend/controllers/createOrder.php", {
+        method: "POST",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify(finalOrder)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.success){
+            alert("Order submitted!");
+        }else{
+            alert("Error sending order: " + data.message);
+        }
+    });
 }
 
 updateBar();
