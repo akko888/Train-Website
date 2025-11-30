@@ -35,7 +35,7 @@ fetch("../../backend/controllers/getOrders.php", {
 
     data.orders.forEach(function(order){
         const li = document.createElement("li");
-        li.classList = "orders-displayed";
+        li.classList = "displayed";
 
         const itemNames = order.items.map(i => i.item_name + " x" + i.quantity).join(", ");
 
@@ -50,8 +50,7 @@ fetch("../../backend/controllers/getOrders.php", {
 
         list.appendChild(li);
     });
-})
-.catch(err => console.error(err)); 
+});
 
 document.getElementById('logOutBtn').addEventListener('click', async function(){
     const response = await fetch("../../backend/controllers/logOut.php", {

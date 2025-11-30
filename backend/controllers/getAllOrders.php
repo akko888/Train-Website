@@ -1,26 +1,28 @@
 <?php
     require_once __DIR__ . "/../config/config.php";
-
+    
     session_start();
-
+    
     header("Content-Type: application/json");
-
-    if(!isset($_SESSION['user']["id"])){
-        echo json_encode(["success" => false, "message" => "User not authenticated."]);
+    
+    if(!isset($_SESSION['user']["id"]) || $_SESSION['user']["role"] !== "admin"){
+        echo json_encode(["success" => false, "message" => "User not authorized."]);
         exit;
     }
-
-    $userId = $_SESSION['user']["id"];
-
-    $stmt = $connection->prepare("SELECT * FROM orders WHERE user_id = ? ORDER BY created_at DESC");
-    $stmt->bind_param("i", $userId);
-    $stmt-> execute();
+    
+    $stmt = $connection->prepare("
+        SELECT o.*, u.username
+        FROM orders o
+        LEFT JOIN users u ON o.user_id = u.user_id
+        ORDER BY o.created_at DESC
+    ");
+    $stmt->execute();
     $ordersResult = $stmt->get_result();
-
+    
     $orders = [];
-
+    
     while($order = $ordersResult->fetch_assoc()){
-
+    
         $stmtItems = $connection->prepare("
             SELECT oi.quantity, oi.unit_price, mi.item_name
             FROM order_items oi
@@ -30,18 +32,18 @@
         $stmtItems->bind_param("i", $order["order_id"]);
         $stmtItems->execute();
         $itemsResult = $stmtItems->get_result();
-
+    
         $items = [];
         while($item = $itemsResult->fetch_assoc()){
             $items[] = $item;
         }
-
+    
         $order["items"] = $items;
         $orders[] = $order;
         $stmtItems->close();
     }
+    
     $stmt->close();
-
     echo json_encode([
         "success" => true,
         "orders" => $orders

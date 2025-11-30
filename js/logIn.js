@@ -4,7 +4,11 @@ fetch("../../backend/auth/auth_check.php", {
 .then(res => res.json())
 .then(data => {
     if(data.authenticated){
-        window.location.href = "../userDashboard/userDashboard.html";
+        if(data.user.role === "admin"){
+            window.location.href = "../adminDashboard/adminDashboard.html";
+        }else{
+            window.location.href = "../userDashboard/userDashboard.html";
+        }
     }
 });
 
@@ -41,9 +45,15 @@ document.getElementById('logInForm').addEventListener('submit', function(e){
             successbox.style.display = 'inline-block';
             errorbox.style.display = 'none';
 
-            setTimeout(() => {
-                window.location.href = "../userDashboard/userDashboard.html";
-            }, 1500);
+            if(data.user.role === "admin"){
+                setTimeout(() => {
+                    window.location.href = "../adminDashboard/adminDashboard.html";
+                }, 1500);
+            }else{
+                setTimeout(() => {
+                    window.location.href = "../userDashboard/userDashboard.html";
+                }, 1500);
+            }
         }
     });
 }); 

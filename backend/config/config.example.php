@@ -14,4 +14,6 @@ if($connection->connect_errno){
     echo "Connected";
 }
 
+define('ADMIN_KEY', 'Set_Your_Admin_Password');
+
 ?>

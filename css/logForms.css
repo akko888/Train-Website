@@ -119,3 +119,23 @@ body{
     border-bottom: 7px solid var(--color-7);
     cursor: pointer;
 }
+
+#adminKeyDiv input[type="password"]{
+    align-self: center;
+    width: 100%;
+    min-height: 3.5vh;
+    padding: .125rem;
+    background-color: var(--color-7);
+    font-size: clamp(1vw, 2vw, 2.5vw);
+    font-family: inherit;
+    transition: background-color .5s steps(5), border-bottom-color .5s steps(5);
+}
+
+#adminKeyDiv input[type="password"]:hover, #adminKeyDiv input[type="password"]:focus{
+    outline: 0;
+    min-height: 3.5vh;
+    background-color: var(--color-9);
+    border-bottom: 7px solid var(--color-7);
+}
+
+#adminKeyDiv{display: none;}
