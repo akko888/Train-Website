@@ -293,3 +293,57 @@ body::before{
     transform: scale(1.1);
     color: var(--color-9);
 }
+
+@media (max-width: 768px) {
+    .viewport{
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .menu-wrapper{
+        flex-direction: row;
+        justify-content: center;
+        min-width: 100%;
+        gap: 1rem;
+    }
+
+    .item{
+        font-size: 4vw;
+    }
+
+    .item img{
+        height: 8vh;
+        width: 8vh;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .car-list{
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .dataForm{
+        font-size: 5vw;
+    }
+
+    .dataForm input[type="text"]{
+        width: 80%;
+        font-size: 4vw;
+    }
+
+    #cardForm{
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .options button {
+        width: 80%;
+        font-size: 4vw;
+    }
+}
+
+

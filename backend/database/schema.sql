@@ -1,79 +1,42 @@
-/*M!999999\- enable the sandbox mode */ 
--- MariaDB dump 10.19-12.0.2-MariaDB, for Linux (x86_64)
---
--- Host: localhost    Database: sushiDB
--- ------------------------------------------------------
--- Server version	12.0.2-MariaDB
+-- ===========================
+-- INITIAL CONFIGURATION
+-- ===========================
+SET NAMES utf8mb4;
+SET TIME_ZONE='+00:00';
+SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*M!100616 SET @OLD_NOTE_VERBOSITY=@@NOTE_VERBOSITY, NOTE_VERBOSITY=0 */;
+-- ===========================
+-- TABLE: MENU CATEGORIES
+-- ===========================
+DROP TABLE IF EXISTS menu_categories;
+CREATE TABLE menu_categories (
+  category_id INT AUTO_INCREMENT PRIMARY KEY,
+  category_name VARCHAR(100) NOT NULL UNIQUE,
+  base_price DECIMAL(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Table structure for table `menu_categories`
---
-
-DROP TABLE IF EXISTS `menu_categories`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `menu_categories` (
-  `category_id` int(11) NOT NULL AUTO_INCREMENT,
-  `category_name` varchar(100) NOT NULL,
-  `base_price` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`category_id`),
-  UNIQUE KEY `category_name` (`category_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `menu_categories`
---
-
-LOCK TABLES `menu_categories` WRITE;
-/*!40000 ALTER TABLE `menu_categories` DISABLE KEYS */;
-set autocommit=0;
-INSERT INTO `menu_categories` VALUES
+-- Initial data
+INSERT INTO menu_categories (category_id, category_name, base_price) VALUES
 (1,'Sushi',20.00),
 (2,'Ramen',20.00),
 (3,'Onigiri',10.00),
 (4,'Drinks',5.00);
-/*!40000 ALTER TABLE `menu_categories` ENABLE KEYS */;
-UNLOCK TABLES;
-commit;
 
---
--- Table structure for table `menu_items`
---
+-- ===========================
+-- TABLE: MENU ITEMS
+-- ===========================
+DROP TABLE IF EXISTS menu_items;
+CREATE TABLE menu_items (
+  item_id INT AUTO_INCREMENT PRIMARY KEY,
+  category_id INT NOT NULL,
+  item_name VARCHAR(100) NOT NULL,
+  price DECIMAL(10,2) NOT NULL,
+  UNIQUE KEY unique_item_name (category_id, item_name),
+  CONSTRAINT fk_menu_category FOREIGN KEY (category_id) REFERENCES menu_categories (category_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-DROP TABLE IF EXISTS `menu_items`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `menu_items` (
-  `item_id` int(11) NOT NULL AUTO_INCREMENT,
-  `category_id` int(11) NOT NULL,
-  `item_name` varchar(100) NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`item_id`),
-  UNIQUE KEY `unique_item_name` (`category_id`,`item_name`),
-  CONSTRAINT `menu_items_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `menu_categories` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `menu_items`
---
-
-LOCK TABLES `menu_items` WRITE;
-/*!40000 ALTER TABLE `menu_items` DISABLE KEYS */;
-set autocommit=0;
-INSERT INTO `menu_items` VALUES
+-- Initial data
+INSERT INTO menu_items (item_id, category_id, item_name, price) VALUES
 (1,1,'Salmon Nigiri',20.00),
 (2,1,'Tuna Nigiri',20.00),
 (3,1,'Shrimp Nigiri',20.00),
@@ -106,123 +69,53 @@ INSERT INTO `menu_items` VALUES
 (30,4,'Calpico',5.00),
 (31,4,'Coke',5.00),
 (32,4,'Iced Tea',5.00);
-/*!40000 ALTER TABLE `menu_items` ENABLE KEYS */;
-UNLOCK TABLES;
-commit;
 
---
--- Table structure for table `order_items`
---
+-- ===========================
+-- TABLE: USERS
+-- ===========================
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
+  user_id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  role ENUM('user','admin') DEFAULT 'user',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-DROP TABLE IF EXISTS `order_items`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `order_items` (
-  `order_item_id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL DEFAULT 1,
-  `unit_price` decimal(10,2) NOT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`order_item_id`),
-  KEY `order_id` (`order_id`),
-  KEY `item_id` (`item_id`),
-  CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE,
-  CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `menu_items` (`item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- ===========================
+-- TABLE: ORDERS
+-- ===========================
+DROP TABLE IF EXISTS orders;
+CREATE TABLE orders (
+  order_id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT DEFAULT NULL,
+  order_name VARCHAR(100) NOT NULL,
+  order_direction TEXT NOT NULL,
+  order_type ENUM('delivery','pickup') NOT NULL,
+  payment_method ENUM('cash','card') NOT NULL,
+  card_number VARCHAR(20) DEFAULT NULL,
+  card_expiration VARCHAR(10) DEFAULT NULL,
+  total_amount DECIMAL(10,2) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  status ENUM('pending','completed','canceled') DEFAULT 'pending',
+  KEY user_id (user_id),
+  CONSTRAINT fk_order_user FOREIGN KEY (user_id) REFERENCES users (user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `order_items`
---
-
-LOCK TABLES `order_items` WRITE;
-/*!40000 ALTER TABLE `order_items` DISABLE KEYS */;
-set autocommit=0;
-/*!40000 ALTER TABLE `order_items` ENABLE KEYS */;
-UNLOCK TABLES;
-commit;
-
---
--- Table structure for table `orders`
---
-
-DROP TABLE IF EXISTS `orders`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `orders` (
-  `order_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `order_name` varchar(100) NOT NULL,
-  `order_direction` text NOT NULL,
-  `order_type` enum('delivery','pickup') NOT NULL,
-  `payment_method` enum('cash','card') NOT NULL,
-  `card_number` varchar(20) DEFAULT NULL,
-  `card_expiration` varchar(10) DEFAULT NULL,
-  `total_amount` decimal(10,2) NOT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `status` enum('pending','completed','canceled') NOT NULL DEFAULT 'pending',
-  PRIMARY KEY (`order_id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `orders`
---
-
-LOCK TABLES `orders` WRITE;
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-set autocommit=0;
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
-UNLOCK TABLES;
-commit;
-
---
--- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password_hash` varchar(255) NOT NULL,
-  `role` enum('user','admin') DEFAULT 'user',
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-set autocommit=0;
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-commit;
-
---
--- Dumping routines for database 'sushiDB'
---
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
-
--- Dump completed on 2025-11-30  0:02:30
+-- ===========================
+-- TABLE: ORDER ITEMS
+-- ===========================
+DROP TABLE IF EXISTS order_items;
+CREATE TABLE order_items (
+  order_item_id INT AUTO_INCREMENT PRIMARY KEY,
+  order_id INT NOT NULL,
+  item_id INT NOT NULL,
+  quantity INT NOT NULL DEFAULT 1,
+  unit_price DECIMAL(10,2) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES orders (order_id) ON DELETE CASCADE,
+  CONSTRAINT fk_item FOREIGN KEY (item_id) REFERENCES menu_items (item_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

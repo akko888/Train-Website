@@ -86,3 +86,73 @@ body::before{
     width: 4.6875rem;
     display: block;
 }
+
+@media (max-width: 900px) {
+    .site-header{
+        gap: 2rem;
+        padding: 0 2rem;
+    }
+
+    .site-title{
+        font-size: 1.3rem;
+    }
+
+    .site-title img{
+        height: 3.5rem;
+        width: 3.5rem;
+    }
+
+    .navbar ul{
+        gap: 1.5rem;
+        font-size: 1.4rem;
+    }
+
+    .login-link img{
+        height: 3.5rem;
+        width: 3.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .site-header{
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .navbar{
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar ul{
+        flex-direction: column;
+        gap: 1rem;
+        font-size: 1.3rem;
+    }
+
+    .site-title{
+        font-size: 1.2rem;
+        gap: .5rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .site-title img,
+    .login-link img{
+        height: 3rem;
+        width: 3rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .site-title{
+        font-size: 1rem;
+    }
+
+    .navbar ul{
+        font-size: 1.1rem;
+    }
+}

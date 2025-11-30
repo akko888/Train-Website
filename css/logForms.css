@@ -18,7 +18,7 @@ body{
 }
 
 .box-container{
-    width: 50%;
+    width: min(50%, 43.75rem);
     min-height: 75%;
     height: auto;
     background-color: var(--color-1);
@@ -51,15 +51,15 @@ body{
     flex-direction: column;
     gap: 15px;
 
-    font-size: clamp(1vw, 2vw, 2.5vw);
+    font-size:  clamp(1rem, 2vw, 1.8rem);
     color: var(--color-9);
 }
 
-.form-container input[type="email"], .form-container input[type="password"], .form-container input[type="text"]{
+.form-container input:not([type="submit"]){
     min-height: 3.5vh;
     padding: .125rem;
     background-color: var(--color-7);
-    font-size: clamp(1vw, 2vw, 2.5vw);
+    font-size: clamp(1rem, 2vw, 1.8rem);
     font-family: inherit;
     transition: background-color .5s steps(5), border-bottom-color .5s steps(5);
 }
@@ -104,7 +104,7 @@ body{
 .form-container select {
     min-height: 3.5vh;
     background-color: var(--color-7);
-    font-size: clamp(1vw, 2vw, 2.5vw);
+    font-size: clamp(1rem, 2vw, 1.8rem);
     font-family: inherit;
     border: none;
     border-bottom: 7px solid transparent;
@@ -126,7 +126,7 @@ body{
     min-height: 3.5vh;
     padding: .125rem;
     background-color: var(--color-7);
-    font-size: clamp(1vw, 2vw, 2.5vw);
+    font-size:  clamp(1rem, 2vw, 1.8rem);
     font-family: inherit;
     transition: background-color .5s steps(5), border-bottom-color .5s steps(5);
 }
@@ -139,3 +139,82 @@ body{
 }
 
 #adminKeyDiv{display: none;}
+
+@media (max-width: 900px){
+    .box-container{
+        width: 70%;
+        padding: 2rem 1rem;
+    }
+
+    .form-container{
+        width: 70%;
+    }
+
+    .form-container input,
+    .form-container select{
+        font-size: clamp(1.2rem, 2vw, 1.8rem);
+    }
+
+    .message{
+        font-size: clamp(1rem, 2vw, 1.5rem);
+    }
+}
+
+@media (max-width: 600px){
+    body{
+        padding: 1rem;
+    }
+
+    .box-container{
+        width: 95%;
+        min-height: auto;
+        border-width: 12px;
+        padding: 1.5rem;
+        gap: 1rem;
+    }
+
+    .form-container{
+        width: 90%;
+        gap: 1rem;
+    }
+
+    .form-container input,
+    .form-container select{
+        min-height: 2.5rem;
+        font-size: 1rem;
+    }
+
+    .form-container input[type="submit"]{
+        width: 60%;
+        min-height: 3rem;
+        font-size: 1.1rem;
+    }
+
+    .message{
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .box-container{
+        border-width: 8px;
+        padding: 1rem;
+    }
+
+    .form-container{
+        width: 100%;
+    }
+
+    .form-container input,
+    .form-container select{
+        font-size: .9rem;
+    }
+
+    .form-container input[type="submit"] {
+        font-size: 1rem;
+    }
+
+    h1{
+        font-size: 1.5rem !important;
+    }
+}

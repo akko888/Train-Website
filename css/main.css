@@ -177,3 +177,141 @@ button:hover, button:focus, button:active{
     max-height: 18.75rem; 
 }
 
+@media (max-width: 1100px) {
+    .viewport1,
+    .viewport2{
+        padding: 3rem;
+        gap: 3rem;
+    }
+
+    .grid-container,
+    .grid-container2{
+        width: 90%;
+    }
+
+    .item1{
+        font-size: clamp(.5rem, 6vh, 4rem);
+        padding: 2rem;
+    }
+
+    .item2,
+    .item3{
+        font-size: clamp(.3rem, 2.5vh, 1.2rem);
+        padding: 1rem;
+    }
+
+    .button-holder{
+        width: 25%;
+        gap: 2rem;
+    }
+
+    .menu{
+        gap: 3rem;
+        width: min(90vw, 28rem);
+    }
+}
+
+@media (max-width: 800px){
+    .viewport2 {
+        flex-direction: column;
+        gap: 4rem;
+    }
+
+    .button-holder{
+        width: 60%;
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    .button-holder button{
+        min-width: 5rem;
+        font-size: clamp(1rem, 4vw, 1.8rem);
+    }
+
+    .grid-container,
+    .grid-container2{
+        width: 100%;
+        grid-template-areas:
+            "box-1"
+            "box-2"
+            "box-3"
+            "box-4";
+    }
+
+    .item{
+        border-width: .6rem;
+    }
+
+    .menu{
+        width: 90%;
+        height: auto;
+        padding: 2rem;
+    }
+
+    .menu img{
+        width: min(20vw, 6rem);
+        height: auto;
+    }
+}
+
+@media (max-width: 500px) {
+    .viewport1,
+    .viewport2 {
+        padding: 2rem;
+        gap: 2rem;
+    }
+
+    .grid-container img,
+    .grid-container2 img{
+        max-height: 12rem;
+    }
+
+    .item{
+        border-width: .4rem;
+    }
+
+    .item1{
+        font-size: clamp(.5rem, 5vh, 2.5rem);
+    }
+
+    .button-holder{
+        width: 90%;
+    }
+
+    .button-holder button{
+        font-size: 1rem;
+        min-width: 4rem;
+    }
+
+    .menu h1{
+        font-size: clamp(.3rem, 3vh, 2.5rem);
+    }
+
+    .menu ol{
+        font-size: clamp(.3rem, 3vh, 1.3rem);
+    }
+
+    .menu{
+        padding: 1.5rem;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .item1,
+    .item2,
+    .item3{
+        font-size: .9rem;
+    }
+
+    .button-holder button{
+        font-size: .9rem;
+    }
+
+    .menu{
+        border-width: .5rem;
+    }
+}
