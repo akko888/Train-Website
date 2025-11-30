@@ -242,3 +242,20 @@ body::before{
     transform: scale(1.1);
     background-color: var(--color-7);
 }
+
+.toggle-btn, .cancelBtn, .completeBtn{
+    background-color: var(--color-7);
+    color: var(--color-1);
+    border: .3125rem solid var(--color-1);
+    padding: .3125rem;
+    font-family: "Jersey 10", sans-serif;
+    transition: transform .1s steps(3);
+    transition: background-color 0.1s steps(1);
+}
+
+.toggle-btn:hover, .toggle-btn:focus,
+.cancelBtn:hover, .cancelBtn:focus
+.completeBtn:hover, .completeBtn:focus{
+    transform: scale(1.1);
+    background-color: var(--color-9);
+}

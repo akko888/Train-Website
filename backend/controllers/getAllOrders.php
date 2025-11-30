@@ -39,6 +39,7 @@
         }
     
         $order["items"] = $items;
+        $order["status"] = $order["status"] ?? 'pending';
         $orders[] = $order;
         $stmtItems->close();
     }

@@ -12,25 +12,77 @@ fetch("../../backend/auth/auth_check.php", {credentials: "include"})
     document.getElementById('role').innerText = data.user.role;
 });
 
-fetch("../../backend/controllers/getAllOrders.php", { credentials: "include" })
-.then(res => res.json())
-.then(data => {
-    const list = document.getElementById("orderList");
-    list.innerHTML = "";
-    if(!data.success || data.orders.length === 0){
-        list.innerHTML = "<li>No orders yet.</li>";
-        return;
-    }
-    data.orders.forEach(order => {
-        const li = document.createElement("li");
-        li.classList = "displayed";
-        const itemNames = order.items.map(i => i.item_name + " x" + i.quantity).join(", ");
-        li.innerHTML = `
-        #${order.order_id} | ${order.username} | ${order.order_name} | ${order.order_type} | $${order.total_amount}<br>
-        Items: ${itemNames} | <em>${order.created_at}</em>
-        `;
-        list.appendChild(li);
+let showCompleted = true;
+
+function fetchAllOrders() {
+    fetch("../../backend/controllers/getAllOrders.php", {credentials: "include"})
+    .then(res => res.json())
+    .then(data => {
+        const list = document.getElementById("orderList");
+        list.innerHTML = "";
+
+        if(!data.success || data.orders.length === 0){
+            list.innerHTML = "<li>No orders yet.</li>";
+            return;
+        }
+
+        let orders = data.orders;
+        if (!showCompleted) {
+            orders = orders.filter(order => order.status !== "completed");
+        }
+
+        orders.forEach(function(order){
+            const li = document.createElement("li");
+            li.classList = "displayed";
+
+            const itemNames = order.items
+                .map(i => `${i.item_name} x${i.quantity}`)
+                .join(", ");
+
+            li.innerHTML = `
+                #${order.order_id} | ${order.username} | ${order.order_name} | 
+                ${order.order_type} | $${order.total_amount}<br>
+                Status: ${order.status}<br>
+                Items: ${itemNames} | <em>${order.created_at}</em><br>
+                ${order.status === "pending" ? 
+                `<button class="completeBtn" data-id="${order.order_id}">Complete</button>`
+                : ''}
+            `;
+
+            list.appendChild(li);
+        });
+        attachCompleteButtons();
     });
+}
+
+function attachCompleteButtons(){
+    document.querySelectorAll(".completeBtn").forEach(btn => {
+        btn.addEventListener('click', async function(){
+            const orderId = btn.dataset.id;
+
+            const res = await fetch("../../backend/controllers/completeOrder.php", {
+                method: "POST",
+                credentials: "include",
+                headers: {"Content-Type": "application/x-www-form-urlencoded"},
+                body: `order_id=${orderId}`
+            });
+
+            const data = await res.json();
+            alert(data.message);
+
+            if(data.success){
+                fetchAllOrders();
+            }
+        });
+    });
+}
+document.getElementById("toggleCompleted").addEventListener("click", () => {
+    showCompleted = !showCompleted;
+
+    document.getElementById("toggleCompleted").innerText =
+        showCompleted ? "Hide completed" : "Show completed";
+
+    fetchAllOrders();
 });
 
 fetch("../../backend/controllers/getUsers.php", { credentials: "include" })
@@ -100,3 +152,5 @@ document.getElementById('deleteBtn').addEventListener('click', async function(){
     })
     .catch(err => console.error(err));
 });
+
+fetchAllOrders();

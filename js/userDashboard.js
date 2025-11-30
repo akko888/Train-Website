@@ -14,11 +14,11 @@ fetch("../../backend/auth/auth_check.php", {
     document.getElementById('role').innerHTML = data.user.role;
 });
 
-fetch("../../backend/controllers/getOrders.php", {
-    credentials: "include"
-})
-.then(res => res.json())
-.then(data => {
+let showCompleted = true;
+
+async function fetchOrders() {
+    const res = await fetch("../../backend/controllers/getOrders.php", { credentials: "include" });
+    const data = await res.json();
     
     const list = document.getElementById("orderList");
     list.innerHTML = "";
@@ -28,28 +28,61 @@ fetch("../../backend/controllers/getOrders.php", {
         return;
     }
 
-    if(data.orders.length === 0){
-        list.innerHTML = '<li>No orders yet... /ᐠ ╥ ˕ ╥マ</li>';
+    let filteredOrders = data.orders.filter(order => order.status !== 'canceled');
+    if(!showCompleted){
+        filteredOrders = filteredOrders.filter(order => order.status !== 'completed');
+    }
+
+    if(filteredOrders.length === 0){
+        list.innerHTML = '<li>No orders to display... /ᐠ ╥ ˕ ╥マ</li>';
         return;
     }
 
-    data.orders.forEach(function(order){
+    filteredOrders.forEach(function(order){
         const li = document.createElement("li");
         li.classList = "displayed";
 
         const itemNames = order.items.map(i => i.item_name + " x" + i.quantity).join(", ");
 
         li.innerHTML = `
-            Order identified by #${order.order_id}<br>
+            Order #${order.order_id}<br>
             Name: ${order.order_name}<br>
             Type: ${order.order_type}<br>
             Total: $${order.total_amount}<br>
             Items: ${itemNames}<br>
-            <em>${order.created_at}</em>
+            Status: ${order.status}<br>
+            <em>${order.created_at}</em><br>
+            ${order.status === 'pending' ? `<button class="cancelBtn" data-id="${order.order_id}">Cancel</button>` : ''}
         `;
 
         list.appendChild(li);
     });
+
+    document.querySelectorAll('.cancelBtn').forEach(function(btn){
+        btn.addEventListener('click', async function(){
+            const orderId = this.dataset.id;
+            const res = await fetch("../../backend/controllers/cancelOrder.php", {
+                method: "POST",
+                credentials: "include",
+                headers: {"Content-Type": "application/x-www-form-urlencoded"},
+                body: `order_id=${orderId}`
+            });
+
+            const data = await res.json();
+            alert(data.message);
+            if(data.success){
+                fetchOrders();
+            }
+        });
+    });
+}
+
+const toggleBtn = document.createElement("button");
+toggleBtn.textContent = "Hide/Show Completed Orders";
+toggleBtn.classList = "toggle-btn";
+toggleBtn.addEventListener("click", function(){
+    showCompleted = !showCompleted;
+    fetchOrders();
 });
 
 document.getElementById('logOutBtn').addEventListener('click', async function(){
@@ -145,3 +178,7 @@ document.getElementById('passwordForm').addEventListener('submit', async functio
         document.getElementById("passwordFormBox").classList.add("hidden");
     }
 });
+
+document.querySelector(".order-box").prepend(toggleBtn);
+
+fetchOrders();

@@ -7,10 +7,13 @@ fetch("../../backend/auth/auth_check.php", {
 .then(data => {
     if(!data.authenticated){
         alert('You can not order without an account'); 
-        window.location.href = "../logIn/logIn.html"; 
+        return window.location.href = "../logIn/logIn.html";
+    }
+    if(data.user.role === "admin"){
+        alert('Admin can not order.');
+        return window.location.href = "../adminDashboard/adminDashboard.html";
     }
 });
-
 
 fetch("../../backend/controllers/getMenu.php")
 .then(res => res.json())
