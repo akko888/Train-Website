@@ -220,7 +220,7 @@ body::before{
     outline: none;
 }
 
-.form-content button, .form-content input[type="submit"]{
+.form-content button, .form-content input[type="submit"], .newName, .newPrice{
     height: max(3vh, 4vh);
     width: max(5vw, 10vw);
     align-self: center;
@@ -237,13 +237,14 @@ body::before{
 .form-content input[type="submit"]:hover,
 .form-content input[type="submit"]:focus,
 .form-content button:hover,
-.form-content button:focus{
+.form-content button:focus,
+.newName:hover, .newName:focus, .newPrice:hover, .newPrice:focus{
     cursor: pointer;
     transform: scale(1.1);
     background-color: var(--color-7);
 }
 
-.toggle-btn, .cancelBtn, .completeBtn{
+.toggle-btn, .cancelBtn, .completeBtn, .deleteItem, .editItem, .addItem{
     background-color: var(--color-7);
     color: var(--color-1);
     border: .3125rem solid var(--color-1);
@@ -255,7 +256,10 @@ body::before{
 
 .toggle-btn:hover, .toggle-btn:focus,
 .cancelBtn:hover, .cancelBtn:focus
-.completeBtn:hover, .completeBtn:focus{
+.completeBtn:hover, .completeBtn:focus
+.deleteItem:hover, .deleteItem:focus,
+.editItem:hover, .editItem:focus,
+.addItem:hover, .addItem:focus{
     transform: scale(1.1);
     background-color: var(--color-9);
 }

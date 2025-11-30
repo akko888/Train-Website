@@ -102,23 +102,61 @@ fetch("../../backend/controllers/getUsers.php", { credentials: "include" })
     });
 });
 
-fetch("../../backend/controllers/getMenu.php", { credentials: "include" })
+fetch("../../backend/controllers/getAllMenuItems.php", {credentials: "include"})
 .then(res => res.json())
 .then(data => {
     const list = document.getElementById("menuList");
     list.innerHTML = "";
-    const categories = Object.values(data); 
-    if(categories.length === 0){
-        list.innerHTML = "<li>No menu items found.</li>";
+
+    if(!data.success){
+        list.innerHTML = "<li>Error loading menu.</li>";
         return;
     }
-    categories.forEach(cat => {
+
+    const categories = {};
+    data.items.forEach(item => {
+        if(!categories[item.category_id]){
+            categories[item.category_id] = {
+                name: item.category_name,
+                items: []
+            };
+        }
+        categories[item.category_id].items.push(item);
+    });
+
+    Object.values(categories).forEach(cat => {
         const li = document.createElement("li");
         li.classList = "displayed";
-        const items = cat.items.map(i => i).join(", ");
-        li.innerHTML = `${cat.title} (Price: ${cat.price}$): ${items}`;
+
+        let html = `${cat.name}<br><ul>`;
+
+        cat.items.forEach(i => {
+            html += `
+                <li>
+                    ${i.item_name} — $${i.price}
+                    <button class="deleteItem" data-id="${i.item_id}">
+                        Delete
+                    </button>
+                </li>
+            `;
+        });
+
+        html += `
+            <li>
+                <input class="newName" placeholder="New item name">
+                <input class="newPrice" type="number" step="0.01" placeholder="Price">
+                <button class="addItem" data-category="${cat.name}">
+                    Add
+                </button>
+            </li>
+        `;
+
+        html += "</ul>";
+        li.innerHTML = html;
         list.appendChild(li);
     });
+
+    attachMenuButtons();
 });
 
 document.getElementById('logOutBtn').addEventListener('click', async function(){
@@ -152,5 +190,52 @@ document.getElementById('deleteBtn').addEventListener('click', async function(){
     })
     .catch(err => console.error(err));
 });
+
+function attachMenuButtons(){
+    document.querySelectorAll(".deleteItem").forEach(btn => {
+        btn.addEventListener("click", async () => {
+            if(!confirm("Delete this item?")) return;
+
+            const res = await fetch("../../backend/controllers/deleteMenuItem.php", {
+                method: "POST",
+                credentials: "include",
+                headers: {"Content-Type": "application/x-www-form-urlencoded"},
+                body: `item_id=${btn.dataset.id}`
+            });
+
+            const data = await res.json();
+            alert(data.message);
+            fetchAllOrders();
+        });
+    });
+
+    document.querySelectorAll(".addItem").forEach(btn => {
+        btn.addEventListener("click", async () => {
+            const container = btn.parentElement;
+            const name = container.querySelector(".newName").value;
+            const price = container.querySelector(".newPrice").value;
+
+            const categoryId = {
+                Sushi: 1,
+                Ramen: 2,
+                Onigiri: 3,
+                Drinks: 4
+            }[btn.dataset.category];
+
+            if(!name || !price) return alert("Missing data");
+
+            const res = await fetch("../../backend/controllers/addMenuItem.php", {
+                method: "POST",
+                credentials: "include",
+                headers: {"Content-Type": "application/x-www-form-urlencoded"},
+                body: `category_id=${categoryId}&item_name=${name}&price=${price}`
+            });
+
+            const data = await res.json();
+            alert(data.message);
+            fetchAllOrders();
+        });
+    });
+}
 
 fetchAllOrders();

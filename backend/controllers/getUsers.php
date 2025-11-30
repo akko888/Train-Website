@@ -17,7 +17,7 @@
     $users = [];
     while($stmt->fetch()){
        $users[] = [
-            'user_id' => $user_id,
+            'user_id' => $userId,
             'username' => $username,
             'email' => $email,
             'role' => $role,
