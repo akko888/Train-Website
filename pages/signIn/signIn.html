@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Sign In</title>
+        <title>Crear cuenta</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="Imgs/svg+xml" href="../../Imgs/headIcon.svg">
@@ -10,29 +10,29 @@
     </head>
     <body>
         <div class="box-container box-container2">
-            <h1>Create Account</h1>
+            <h1>Crear cuenta</h1>
             <form method="post" class="form-container" id="registerForm">
-                Username: <input type="text" name="username" required>
+                Nombre: <input type="text" name="username" required>
                 Email: <input type="email" name="email" required>
-                Password: <input type="password" name="password" required>
-                Confirm Password: <input type="password" name="confirmPassword" required>
-                Role:
+                Contraseña: <input type="password" name="password" required>
+                Repite la Contraseña: <input type="password" name="confirmPassword" required>
+                Rol:
                 <select name="role" required>
-                    <option value="" disabled selected>Select role</option>
-                    <option value="user">User</option>
-                    <option value="admin">Administrator</option>
+                    <option value="" disabled selected>Selecciona un rol</option>
+                    <option value="usuario">Usuario</option>
+                    <option value="admin">Administrador</option>
                 </select>
                 <div id="adminKeyDiv">
-                    Admin Key: <input type="password" name="adminkey" id="adminkey">
+                    Llave de admin: <input type="password" name="adminkey" id="adminkey">
                 </div>
-                <input type="submit" value="Sign In">
+                <input type="submit" value="Crear Cuenta">
             </form>
 
             <div class="message">
-                Already have an account?
-                <a href="../logIn/logIn.html">Log In</a>
+                ¿Ya tienes una cuenta?
+                <a href="../logIn/logIn.html">Iniciar sesión</a>
             </div>
-            <div class="message"><a href="../../index.html">Go back home</a></div>
+            <div class="message"><a href="../../index.html">Ir de vuelta al inicio</a></div>
         </div>
         <div class="error-box" id="errorBox">
         </div>

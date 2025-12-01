@@ -16,8 +16,8 @@
         $email = trim($_POST['email']);
         $password = $_POST['password'];
 
-        if(empty($email)) $response["errors"][] = "Email is required.";
-        if(empty($password)) $response["errors"][] = "Password is required";
+        if(empty($email)) $response["errors"][] = "Se requiere el email.";
+        if(empty($password)) $response["errors"][] = "Se requiere la contraseña.";
 
         if(!empty($response["errors"])){
             echo json_encode($response);
@@ -34,7 +34,7 @@
         $result = $stmt->get_result();
 
         if($result->num_rows === 0){
-            $response["errors"][] = "Invalid email or password.";
+            $response["errors"][] = "Contreseña o email inválidos.";
             echo json_encode($response);
             exit;
         }
@@ -51,10 +51,10 @@
             ];
 
             $response["success"] = true;
-            $response["message"] = "Login successful! Redirecting...";
+            $response["message"] = "Cuenta encontrada! Redirigiendo...";
             $response["user"] = $_SESSION['user'];
         }else{
-            $response["errors"][] = "Invalid email or password.";
+            $response["errors"][] = "Contraseña o email inválidos.";
         }
 
         $stmt->close();

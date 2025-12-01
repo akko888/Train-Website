@@ -140,7 +140,7 @@ button:hover, button:focus, button:active{
 
 .menu ol{
     font-family: "Jersey 10", sans-serif;
-    font-size: clamp(.3125rem, 6vh, 1.875rem);
+    font-size: clamp(.3125rem, 3vh, 1.5625rem);
     color: var(--color-8);
 }
 

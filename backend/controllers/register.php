@@ -18,14 +18,14 @@
         $confirm = $_POST['confirmPassword'];
         $role = $_POST['role'];
 
-        if(empty($username)) $response["errors"][] = "User name is obligatory.";
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) $response["errors"][] = "Email is not valid.";
-        if($password !== $confirm) $response["errors"][] = "Passwords do not match.";
+        if(empty($username)) $response["errors"][] = "El nombre de usario es obligatorio.";
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) $response["errors"][] = "Email no válido.";
+        if($password !== $confirm) $response["errors"][] = "Las contraseñas no coinciden.";
 
         if($role === "admin"){
             $adminkey = trim($_POST['adminkey'] ?? '');
             if($adminkey !== ADMIN_KEY){
-                $response["errors"][] = "Invalid admin key. Cannot register as admin.";
+                $response["errors"][] = "Llave incorrecta. No se puede registrar como admin.";
             }
         }
 
@@ -52,10 +52,10 @@
             ];
 
             $response["success"] = true;
-            $response["message"] = "User registered correctly, Redirecting...";
+            $response["message"] = "Usuario registrado correctamente, Redirigiendo...";
             $response["user"] = $_SESSION['user'];;
         }else{
-            $response["errors"][] = "Error in the data base: " . $stmt->error;        
+            $response["errors"][] = "Error en la base de datos: " . $stmt->error;        
         }
 
         $stmt->close();

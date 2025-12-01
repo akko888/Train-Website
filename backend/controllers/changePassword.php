@@ -6,7 +6,7 @@
     session_start(); 
 
     if(!isset($_SESSION["user"]["id"])){
-        echo json_encode(["changed" => false, "message" => "Not authenticated."]); 
+        echo json_encode(["changed" => false, "message" => "No autorizado"]); 
         exit;
     }
 
@@ -19,12 +19,12 @@
         $userId = $_SESSION["user"]["id"];
 
         if(!$current || !$new || !$repeat){
-            echo json_encode(["changed" => false, "message" => "Missing fields"]);
+            echo json_encode(["changed" => false, "message" => "Información faltante"]);
             exit;
         }
 
         if($new !== $repeat){
-            echo json_encode(["changed" => false, "message" => "Passwords do not match"]);
+            echo json_encode(["changed" => false, "message" => "Las contraseñas no coinciden"]);
             exit;
         }
 
@@ -34,7 +34,7 @@
         $result = $stmt->get_result();
 
         if($result->num_rows === 0){
-            echo json_encode(["changed" => false, "message" => "User not found."]);
+            echo json_encode(["changed" => false, "message" => "No se encontró el usuario"]);
             exit;
         }
 
@@ -42,7 +42,7 @@
         $stmt->close();
 
         if(!password_verify($current, $user["password_hash"])){
-            echo json_encode(["changed" => false, "message" => "Incorrect current password"]);
+            echo json_encode(["changed" => false, "message" => "Tu contraseña no es correcta"]);
             exit;
         }
 
@@ -56,6 +56,6 @@
 
     echo json_encode([
         "changed" => $ok,
-        "message" => $ok ? "Password changed successfully" : "Error updating password."
+        "message" => $ok ? "La contraseña ha sido cambiada!" : "Error al actualizar la contraseña."
     ]);
 ?>

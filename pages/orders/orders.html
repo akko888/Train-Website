@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Sushi Neko</title>
+        <title>Ordenes</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="Imgs/svg+xml" href="../../Imgs/headIcon.svg">
@@ -16,9 +16,9 @@
             </div>
             <nav class="navbar">
                 <ul>
-                    <li><a href="../../index.html">Home</a></li>
-                    <li class="highlight"><a href="orders.html">Orders</a></li>
-                    <li><a href="../subsidiaries/subsidiaries.html">Subsidiaries</a></li>
+                    <li><a href="../../index.html">Inicio</a></li>
+                    <li class="highlight"><a href="orders.html">Ordenes</a></li>
+                    <li><a href="../subsidiaries/subsidiaries.html">Establecimientos</a></li>
                 </ul>
             </nav>
             <a href="../logIn/logIn.html" class="login-link">
@@ -41,9 +41,9 @@
                     <img src="../../Imgs/onigiriMenu.png" alt="No image">
                     Onigiri
                 </button>
-                <button class="item" data-category="Drinks">
-                    <img src="../../Imgs/drinksMenu.png" alt="No image">
-                    Drinks
+                <button class="item" data-category="Bebidas">
+                    <img src="../../Imgs/bebidasMenu.png" alt="No image">
+                    Bebidas
                 </button>
             </aside>
             <main class="main-content">
@@ -53,34 +53,34 @@
 
                 <!-- Step 0 -->
                 <div class="steps" id="orderStart">
-                    <div class="step-title"><h1>Do you want to start an order?<br>
+                    <div class="step-title"><h1>¿Deseas iniciar una orden?<br>
                     /ᐠ - ˕ -マ ᶻ 𝗓 𐰁</h1></div>
                 </div>
 
                 <!-- Step 1 -->
                 <div class="steps" id="menuItems">
-                    <div class="step-title"><h1 id="menuTitle">Select your the kind of food you want!
+                    <div class="step-title"><h1 id="menuTitle">Selecciona el tipo de comida que quieras!
                     <br> ≽ ^⎚ ˕ ⎚^ ≼</h1></div>
                     <div class="menu-grid" id="menuGrid"></div>
                 </div>
 
                 <!-- Step 2 -->
                 <div class="steps" id="confirmation">
-                    <div class="step-title"><h1>Your order 🥔 ฅ≽(•⩊ •マ≼: </h1></div>
+                    <div class="step-title"><h1>Tu orden 🥔 ฅ≽(•⩊ •マ≼: </h1></div>
                     <div class="car-list" id="carList"></div>
                     <div class="total-price" id="totalPrice"></div>
                 </div>
 
                 <!-- Step 3 -->
                 <div class="steps" id="extraInfo">
-                    <div class="step-title"><h1>Let's finish this order /ᐠ • ˕ •マ ?</h1></div>
+                    <div class="step-title"><h1>Terminemos esta orden /ᐠ • ˕ •マ ?</h1></div>
                     <form method="post" class="dataForm" id="dataForm">
-                        Name of your order: <input type="text" name="orderName" required>
-                        Direction: <input type="text" name="orderDirection" required>
+                        Nombre de tu orden: <input type="text" name="orderName" required>
+                        Dirección: <input type="text" name="orderDirection" required>
                         <br>
-                        <h3>Type of order</h3>
+                        <h3>Tipo de orden</h3>
                         <label class="custom-radio">
-                            PickUp <input type="radio" name="typeOrder" value="pickUp" required>
+                            Recoger <input type="radio" name="typeOrder" value="recoger" required>
                             <span class="radio-mark"></span>
                         </label>
                         <label class="custom-radio">
@@ -88,33 +88,34 @@
                             <span class="radio-mark"></span>
                         </label>
                         <br>
-                        <h3>Choose Payment Method</h3>
+                        <h3>Elige el método de pago</h3>
                         <label class="custom-radio">
-                            Card <input type="radio" name="pay" value="card" required>
+                            Tarjeta <input type="radio" name="pay" value="tarjeta" required>
                             <span class="radio-mark"></span>
                         </label>
                         <label class="custom-radio">
-                            Cash <input type="radio" name="pay" value="cash" required>
+                            Efectivo <input type="radio" name="pay" value="efectivo" required>
                             <span class="radio-mark"></span>
                         </label>
 
                         <div id="cardForm">
-                            Card Number: <input type="text" placeholder="0000 0000 0000 0000" required>
-                            Expiration: <input type="text" placeholder="MM/YY" required>
+                            (Prueba, no ingreses datos reales)<br>
+                            Numero de tarjeta: <input type="text" placeholder="0000 0000 0000 0000" required>
+                            Expiración: <input type="text" placeholder="MM/YY" required>
                         </div>
                     </form>
                 </div>
 
                 <div class="steps" id="finalStep">
-                    <div class="step-title"><h1>Congratulations!! Your order has been submitted!!<br>
+                    <div class="step-title"><h1>Felicidades!! Tu orden ha sido registrada!!<br>
                     ദ്ദി/ᐠ｡‸｡ᐟ\</h1></div>
-                    <a href="../../index.html">Go back home</a>
+                    <a href="../../index.html">Ir de vuelta al inicio</a>
                 </div>
 
                 <!-- Options Menu -->
                 <div class="options" id="options">
-                    <button id="prevBtn">Back</button>
-                    <button id="nextBtn">Next</button>
+                    <button id="prevBtn">Atras</button>
+                    <button id="nextBtn">Siguiente</button>
                 </div>
             </main>
         </div>

@@ -6,7 +6,7 @@
     session_start();
 
     if(!isset($_SESSION["user"]["id"])){
-        echo json_encode(["updated" => false, "message" => "Not authenticated."]); 
+        echo json_encode(["updated" => false, "message" => "No autorizado."]); 
         exit;
     }
 
@@ -18,14 +18,14 @@
         $userId = $_SESSION["user"]["id"];
 
         if(!$username || !$email){
-            echo json_encode(["updated" => false, "message" => "Missing fields."]);
+            echo json_encode(["updated" => false, "message" => "Información faltante."]);
             exit;
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
         echo json_encode([
             "updated" => false,
-            "message" => "Invalid email format."
+            "message" => "Formato de email inválido."
         ]);
         exit;
         }
@@ -43,6 +43,6 @@
 
     echo json_encode([
         "updated" => $updated,
-        "message" => $updated ? "Account updated successfully!" : "Failed to update." 
+        "message" => $updated ? "Cuenta actualizada correctamente!" : "Fallo al actualizar." 
     ]);
 ?>

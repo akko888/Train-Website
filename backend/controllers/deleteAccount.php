@@ -6,7 +6,7 @@
     if(!isset($_SESSION['user'])){
         echo json_encode([
             "deleted" => false,
-            "message" => "No active session."
+            "message" => "No hay sesión activa."
         ]);
         exit;
     }
@@ -15,21 +15,27 @@
 
     require_once __DIR__ . '/../config/config.php';
 
-    $stmt = $connection->prepare("DELETE FROM users WHERE user_id = ?");
-    $stmt->bind_param("i", $userId);
+    $stmtOrders = $connection->prepare("DELETE FROM orders WHERE user_id = ?");
+    $stmtOrders->bind_param("i", $userId);
+    $stmtOrders->execute();
+    
+    $stmtUser = $connection->prepare("DELETE FROM users WHERE user_id = ?");
+    $stmtUser->bind_param("i", $userId);
+    $stmtUser->execute();
 
-    if($stmt->execute()){
+
+    if($stmtUser->execute()){
         session_unset();
         session_destroy();
 
         echo json_encode([
             "deleted" => true,
-            "message" => "Account deleted succesfully!!"
+            "message" => "La cuenta ha sido eliminada!!"
         ]);
     }else{
         echo json_encode([
             "deleted" => false,
-            "message" => "Error deleting account."
+            "message" => "Error al eliminar la cuenta."
         ]);
     }
 ?>

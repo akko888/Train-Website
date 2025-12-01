@@ -6,7 +6,7 @@
     if(!isset($_SESSION['user'])){
         echo json_encode([
             "authenticated" => false,
-            "message" => "No active session."
+            "message" => "No hay sesión activa."
         ]);
         exit;
     }

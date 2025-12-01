@@ -1,19 +1,19 @@
 <?php
-// Set the data from this file to your own data and change its name to "config.php"
+// Pon tu información en este archivo y cambia la contraseña de administrador
 
 $server = "localhost";
-$user = "your_user";
-$pass = "your_password";
+$user = "tu_usuario";
+$pass = "tu_contraseña";
 $db = "sushiDB";
 
 $connection = new mysqli($server, $user, $pass, $db);
 
 if($connection->connect_errno){
-    die("Connection failed" . $connection->connect_errno);
-}else{
+    die("La conexión falló: " . $connection->connect_errno);
+}/*else{
     echo "Connected";
-}
+}*/
 
-define('ADMIN_KEY', 'Set_Your_Admin_Password');
+define('ADMIN_KEY', 'Configura_tu_contraseña');
 
 ?>

@@ -5,17 +5,17 @@
 
     header("Content-Type: application/json");
 
-    $role = $_SESSION['user']["role"] ?? 'user';
+    $role = $_SESSION['user']["role"] ?? 'usuario';
 
     if($role !== 'admin'){
-        echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+        echo json_encode(['success' => false, 'message' => 'No autorizado']);
         exit;
     }
 
     $id = $_POST["item_id"] ?? null;
 
     if(!$id){
-        echo json_encode(["success" => false, "message" => "Missing item ID"]);
+        echo json_encode(["success" => false, "message" => "No se encuentra el ID del artículo"]);
         exit;
     }
 
@@ -24,6 +24,6 @@
 
     echo json_encode([
         "success" => $stmt->execute(),
-        "message" => $stmt->execute() ? "Item deleted" : "Error deleting"
+        "message" => $stmt->execute() ? "Artículo eliminado" : "Error al eliminar"
     ]);   
 ?>

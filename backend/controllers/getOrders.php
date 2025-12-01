@@ -6,7 +6,7 @@
     header("Content-Type: application/json");
 
     if(!isset($_SESSION['user']["id"])){
-        echo json_encode(["success" => false, "message" => "User not authenticated."]);
+        echo json_encode(["success" => false, "message" => "Usuario no autorizado."]);
         exit;
     }
 
@@ -37,7 +37,7 @@
         }
 
         $order["items"] = $items;
-        $order["status"] = $order["status"] ?? 'pending';
+        $order["status"] = $order["status"] ?? 'pendiente';
         $orders[] = $order;
         $stmtItems->close();
     }

@@ -22,13 +22,13 @@ function fetchAllOrders() {
         list.innerHTML = "";
 
         if(!data.success || data.orders.length === 0){
-            list.innerHTML = "<li>No orders yet.</li>";
+            list.innerHTML = "<li>Sin ordenes.</li>";
             return;
         }
 
         let orders = data.orders;
         if (!showCompleted) {
-            orders = orders.filter(order => order.status !== "completed");
+            orders = orders.filter(order => order.status !== "completada");
         }
 
         orders.forEach(function(order){
@@ -42,10 +42,10 @@ function fetchAllOrders() {
             li.innerHTML = `
                 #${order.order_id} | ${order.username} | ${order.order_name} | 
                 ${order.order_type} | $${order.total_amount}<br>
-                Status: ${order.status}<br>
-                Items: ${itemNames} | <em>${order.created_at}</em><br>
-                ${order.status === "pending" ? 
-                `<button class="completeBtn" data-id="${order.order_id}">Complete</button>`
+                Estado: ${order.status}<br>
+                Artículos: ${itemNames} | <em>${order.created_at}</em><br>
+                ${order.status === "pendiente" ? 
+                `<button class="completeBtn" data-id="${order.order_id}">Completar</button>`
                 : ''}
             `;
 
@@ -80,7 +80,7 @@ document.getElementById("toggleCompleted").addEventListener("click", () => {
     showCompleted = !showCompleted;
 
     document.getElementById("toggleCompleted").innerText =
-        showCompleted ? "Hide completed" : "Show completed";
+        showCompleted ? "Esconder completadas" : "Mostrar completadas";
 
     fetchAllOrders();
 });
@@ -91,7 +91,7 @@ fetch("../../backend/controllers/getUsers.php", { credentials: "include" })
     const list = document.getElementById("userList");
     list.innerHTML = "";
     if(!data.success || data.users.length === 0){
-        list.innerHTML = "<li>No users found.</li>";
+        list.innerHTML = "<li>Sin usuarios.</li>";
         return;
     }
     data.users.forEach(user => {
@@ -109,7 +109,7 @@ fetch("../../backend/controllers/getAllMenuItems.php", {credentials: "include"})
     list.innerHTML = "";
 
     if(!data.success){
-        list.innerHTML = "<li>Error loading menu.</li>";
+        list.innerHTML = "<li>Error cargando el menu.</li>";
         return;
     }
 
@@ -135,7 +135,7 @@ fetch("../../backend/controllers/getAllMenuItems.php", {credentials: "include"})
                 <li>
                     ${i.item_name} — $${i.price}
                     <button class="deleteItem" data-id="${i.item_id}">
-                        Delete
+                        Borrar
                     </button>
                 </li>
             `;
@@ -143,10 +143,10 @@ fetch("../../backend/controllers/getAllMenuItems.php", {credentials: "include"})
 
         html += `
             <li>
-                <input class="newName" placeholder="New item name">
-                <input class="newPrice" type="number" step="0.01" placeholder="Price">
+                <input class="newName" placeholder="Nuevo artículo">
+                <input class="newPrice" type="number" step="0.01" placeholder="Precio">
                 <button class="addItem" data-category="${cat.name}">
-                    Add
+                    Añadir
                 </button>
             </li>
         `;
@@ -172,7 +172,7 @@ document.getElementById('logOutBtn').addEventListener('click', async function(){
 
 document.getElementById('deleteBtn').addEventListener('click', async function(){
     
-    if(!confirm("Are you sure you want to delete your account? This cannot be undone.")){
+    if(!confirm("¿Estás seguro que quieres borar la cuenta? No puede ser deshecho.")){
         return;
     }
 
@@ -194,7 +194,7 @@ document.getElementById('deleteBtn').addEventListener('click', async function(){
 function attachMenuButtons(){
     document.querySelectorAll(".deleteItem").forEach(btn => {
         btn.addEventListener("click", async () => {
-            if(!confirm("Delete this item?")) return;
+            if(!confirm("Elimnar este artículo?")) return;
 
             const res = await fetch("../../backend/controllers/deleteMenuItem.php", {
                 method: "POST",
@@ -205,7 +205,7 @@ function attachMenuButtons(){
 
             const data = await res.json();
             alert(data.message);
-            fetchAllOrders();
+            location.reload();
         });
     });
 
@@ -219,7 +219,7 @@ function attachMenuButtons(){
                 Sushi: 1,
                 Ramen: 2,
                 Onigiri: 3,
-                Drinks: 4
+                Bebidas: 4
             }[btn.dataset.category];
 
             if(!name || !price) return alert("Missing data");
@@ -233,7 +233,7 @@ function attachMenuButtons(){
 
             const data = await res.json();
             alert(data.message);
-            fetchAllOrders();
+            location.reload();
         });
     });
 }

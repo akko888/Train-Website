@@ -24,17 +24,17 @@ async function fetchOrders() {
     list.innerHTML = "";
 
     if(!data.success){
-        list.innerHTML = '<li>We could not find your order /ᐠ ╥ ˕ ╥マ</li>';
+        list.innerHTML = '<li>No pudimos encontrar tus ordenes /ᐠ ╥ ˕ ╥マ</li>';
         return;
     }
 
-    let filteredOrders = data.orders.filter(order => order.status !== 'canceled');
+    let filteredOrders = data.orders.filter(order => order.status !== 'cancelada');
     if(!showCompleted){
-        filteredOrders = filteredOrders.filter(order => order.status !== 'completed');
+        filteredOrders = filteredOrders.filter(order => order.status !== 'completada');
     }
 
     if(filteredOrders.length === 0){
-        list.innerHTML = '<li>No orders to display... /ᐠ ╥ ˕ ╥マ</li>';
+        list.innerHTML = '<li>Sin ordenes que mostrar... /ᐠ ╥ ˕ ╥マ</li>';
         return;
     }
 
@@ -45,14 +45,14 @@ async function fetchOrders() {
         const itemNames = order.items.map(i => i.item_name + " x" + i.quantity).join(", ");
 
         li.innerHTML = `
-            Order #${order.order_id}<br>
-            Name: ${order.order_name}<br>
-            Type: ${order.order_type}<br>
+            Orden número #${order.order_id}<br>
+            Nombre: ${order.order_name}<br>
+            Tipo: ${order.order_type}<br>
             Total: $${order.total_amount}<br>
-            Items: ${itemNames}<br>
-            Status: ${order.status}<br>
+            Artículos: ${itemNames}<br>
+            Estado: ${order.status}<br>
             <em>${order.created_at}</em><br>
-            ${order.status === 'pending' ? `<button class="cancelBtn" data-id="${order.order_id}">Cancel</button>` : ''}
+            ${order.status === 'pendiente' ? `<button class="cancelBtn" data-id="${order.order_id}">Cancel</button>` : ''}
         `;
 
         list.appendChild(li);
@@ -78,7 +78,7 @@ async function fetchOrders() {
 }
 
 const toggleBtn = document.createElement("button");
-toggleBtn.textContent = "Hide/Show Completed Orders";
+toggleBtn.textContent = "Esconder/Mostrar Ordenes Completadas";
 toggleBtn.classList = "toggle-btn";
 toggleBtn.addEventListener("click", function(){
     showCompleted = !showCompleted;
@@ -98,7 +98,7 @@ document.getElementById('logOutBtn').addEventListener('click', async function(){
 
 document.getElementById('deleteBtn').addEventListener('click', async function(){
     
-    if(!confirm("Are you sure you want to delete your account? This cannot be undone.")){
+    if(!confirm("¿Estás seguro que quieres borar la cuenta? No puede ser deshecho.")){
         return;
     }
 
@@ -161,7 +161,7 @@ document.getElementById('passwordForm').addEventListener('submit', async functio
     const repeat = formData.get("repeatPassword");
 
     if(newPass !== repeat){
-        alert("New password do not match!");
+        alert("La contraseñas no coinciden!");
         return;
     }
 

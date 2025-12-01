@@ -8,7 +8,7 @@
     $role = $_SESSION['user']["role"] ?? 'user';
 
     if($role !== 'admin'){
-        echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+        echo json_encode(['success' => false, 'message' => 'No autorizado']);
         exit;
     }
 
@@ -17,7 +17,7 @@
     $price = $_POST["price"] ?? null;
 
     if(!$category_id || !$name || !$price){
-        echo json_encode(["success" => false, "message" => "Missing fields"]);
+        echo json_encode(["success" => false, "message" => "Información faltante"]);
         exit;
     }
 
@@ -31,6 +31,6 @@
 
     echo json_encode([
         "success" => $executed,
-        "message" => $executed ? "Item added" : "Error adding item"
+        "message" => $executed ? "Artículo agregado" : "Error al agregar"
     ]);    
 ?>

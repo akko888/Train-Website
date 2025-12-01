@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>User - Dashboard</title>
+        <title>User - Panel</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="Imgs/svg+xml" href="../../Imgs/headIcon.svg">
@@ -16,9 +16,9 @@
             </div>
             <nav class="navbar">
                 <ul>
-                    <li><a href="../../index.html">Home</a></li>
-                    <li><a href="../orders/orders.html">Orders</a></li>
-                    <li><a href="../subsidiaries/subsidiaries.html">Subsidiaries</a></li>
+                    <li><a href="../../index.html">Inicio</a></li>
+                    <li><a href="../orders/orders.html">Ordenes</a></li>
+                    <li><a href="../subsidiaries/subsidiaries.html">Establecimientos</a></li>
                 </ul>
             </nav>
             <a href="userDashboard.html" class="login-link">
@@ -29,20 +29,20 @@
             <section class="viewport-dashboard">
                 <div class="dashboard-grid">
                     <div class="box welcome-box">
-                        Welcome back! <span id="username"></span> ฅ^ >ヮ<^₎
+                        Bienvenido de vuelta! <span id="username"></span> ฅ^ >ヮ<^₎
                     </div>
                     <div class="box info-box">
-                        <h2>Account Information</h2>
-                        <p>Username: <span id="usernameInfo"></span></p> 
+                        <h2>Información de la Cuenta</h2>
+                        <p>Nombre: <span id="usernameInfo"></span></p> 
                         <p>Email: <span id="email"></span>
-                        <p>Role: <span id="role"></span></p>
-                        <button id="logOutBtn">Log out</button>
-                        <button id="deleteBtn">Delete account</button>
-                        <button id="editBtn">Edit data</button>
-                        <button id="changePasswordBtn">Change Password</button>
+                        <p>Rol: <span id="role"></span></p>
+                        <button id="logOutBtn">Cerrar Sesión</button>
+                        <button id="deleteBtn">Borrar Cuenta</button>
+                        <button id="editBtn">Editar Información</button>
+                        <button id="changePasswordBtn">Cambiar Contraseña</button>
                     </div>
                     <div class="box order-box">
-                        <h2>Your Orders</h2>
+                        <h2>Tus ordenes</h2>
                         <ul id="orderList">
                             <li></li>
                         </ul>
@@ -53,22 +53,22 @@
                 </div>
                 <div class="formEdit hidden" id="editFormBox">
                     <form class="form-content" id="editForm" method="post">
-                        <h3>Edit Account Data</h3>
-                        New username: <input type="text" name="newUsername" required>
-                        New email: <input type="email" name="newEmail" required>
+                        <h3>Editar Información</h3>
+                        Nuevo Nombre: <input type="text" name="newUsername" required>
+                        Nuevo Email: <input type="email" name="newEmail" required>
 
-                        <input type="submit" value="Save" id="saveEditBtn">
-                        <button type="button" id="cancelEdit">Cancel</button>
+                        <input type="submit" value="Guardar" id="saveEditBtn">
+                        <button type="button" id="cancelEdit">Cancelar</button>
                     </form>
                 </div>
                 <div class="formEdit hidden" id="passwordFormBox">
                     <form class="form-content" id="passwordForm" method="post">
-                        Current password: <input type="password" name="currentPassword">
-                        New password: <input type="password" name="newPassword">
-                        Repeat new password: <input type="password" name="repeatPassword">
+                        Contraseña Actual: <input type="password" name="currentPassword">
+                        Nueva Contraseña: <input type="password" name="newPassword">
+                        Repite: <input type="password" name="repeatPassword">
 
-                        <input type="submit" value="Change">
-                        <button type="button" id="cancelPassword">Cancel</button> 
+                        <input type="submit" value="Cambiar">
+                        <button type="button" id="cancelPassword">Cancelar</button> 
                     </form>
                 </div>
             </section>

@@ -8,7 +8,7 @@
     $role = $_SESSION['user']["role"] ?? 'user';
 
     if($role !== 'admin'){
-        echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+        echo json_encode(['success' => false, 'message' => 'No autorizado']);
         exit;
     }
 

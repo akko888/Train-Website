@@ -8,7 +8,7 @@
     if(!isset($_SESSION['user']["id"])){
         echo json_encode([
             "success" => false,
-            "message" => "User not authenticated"
+            "message" => "Usuario no autirizado"
         ]);
         exit;
     }
@@ -20,7 +20,7 @@
     if(!$data){
         echo json_encode([
             "success" => false,
-            "message" => "Invalid order"
+            "message" => "Orden invalida"
         ]);
         exit;
     }
@@ -37,7 +37,7 @@
     if(!$orderName || !$direction || !$typeOrder || !$pay || empty($items)){
         echo json_encode([
             "success" => false,
-            "message" => "Missing required fields"
+            "message" => "Información necesaria faltante"
         ]);
         exit;
     }
@@ -56,7 +56,7 @@
     if(!$stmt->execute()){
         echo json_encode([
             "success" => false,
-            "message" => "Order insert failed: " . $stmt->error 
+            "message" => "Falló al insertar la orden: " . $stmt->error 
         ]);
         exit; 
     }
@@ -82,7 +82,7 @@
         if($result-> num_rows === 0){
             echo json_encode([
                 "success" => false,
-                "message" => "Item not found: $name"
+                "message" => "No se encontró el artículo: $name"
             ]);
             exit;
         }
@@ -95,7 +95,7 @@
         if(!$itemStmt->execute()){
             echo json_encode([
                 "success" => false,
-                "message" => "Item insert failed: " . $itemStmt->error
+                "message" => "Error al insertar el artículo: " . $itemStmt->error
             ]);
             exit;
         }

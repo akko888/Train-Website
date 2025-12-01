@@ -6,11 +6,11 @@ fetch("../../backend/auth/auth_check.php", {
 .then(res => res.json())
 .then(data => {
     if(!data.authenticated){
-        alert('You can not order without an account'); 
+        alert('No puedes ordenar sin cuenta.'); 
         return window.location.href = "../logIn/logIn.html";
     }
     if(data.user.role === "admin"){
-        alert('Admin can not order.');
+        alert('Los administradores no pueden ordenar.');
         return window.location.href = "../adminDashboard/adminDashboard.html";
     }
 });
@@ -51,7 +51,7 @@ function switchCategory(cat){
     menuItems[cat].items.forEach(function(item){
         const div = document.createElement('div');
         const btn = document.createElement('button');
-        btn.textContent = 'Add'; 
+        btn.textContent = 'Añadir'; 
         btn.classList = 'menu-button';
 
         div.classList.add('menu-item');
@@ -73,7 +73,7 @@ function addToCart(name, price){
     if(exists){exists.qty++}
     else{car.push({name, price, qty: 1});} 
     
-    alert(name + " added to cart!")
+    alert(name + " añadido al carrito!")
 }
 
 document.querySelectorAll('.options button').forEach(function(btn){
@@ -94,7 +94,7 @@ function changeStep(direction){
 
     if(currentStep === 1 && newStep === 2 || currentStep === 2 && newStep === 3){
         if(car.length === 0){
-            alert('Your cart is empty. Add at least one item.');
+            alert('Tu carrito está vacio. Añade al menos un artículo.');
             return;
         }
     }
@@ -103,24 +103,24 @@ function changeStep(direction){
         const form = document.getElementById('dataForm');
 
         if(!form.orderName.value.trim() || !form.orderDirection.value.trim()){
-            alert("Please fill all required fields.");
+            alert("Por favor llena los campos.");
             return;
         }
 
         if(!form.typeOrder.value){
-            alert("Please select a type of order.");
+            alert("Por favor selecciona el tipo de orden.");
             return;
         }
 
         if(!form.pay.value){
-            alert("Please select a payment method.");
+            alert("Por favor selecciona el método de pago.");
             return;
         }
 
         if(form.pay.value === "card"){
             const cardInputs = document.querySelectorAll('#cardForm input');
             if (!cardInputs[0].value.trim() || !cardInputs[1].value.trim()) {
-                alert("Please complete the card information.");
+                alert("Completa la información de la tarjeta.");
                 return;
             }
         }
@@ -132,9 +132,9 @@ function changeStep(direction){
     if(currentStep === 4) orderStarted = false;
 
     const nextBtn = document.getElementById('nextBtn');
-    if(currentStep === 0) nextBtn.innerText = 'Start';
-    else if(currentStep === 3) nextBtn.innerText = 'Submit';
-    else nextBtn.innerText = 'Next';
+    if(currentStep === 0) nextBtn.innerText = 'Empezar';
+    else if(currentStep === 3) nextBtn.innerText = 'Ordenar';
+    else nextBtn.innerText = 'Siguiente';
 
     const prevBtn = document.getElementById('prevBtn');
     prevBtn.style.display = (currentStep <= 1) ? 'none' : 'inline-block';
@@ -187,7 +187,7 @@ function loadCar(){
 
         total += item.price *  item.qty;
 
-        div.innerHTML = '<span>' + item.name + ' ' + item.price*item.qty + '$' + ' (Quantity: ' + item.qty +')</span>';
+        div.innerHTML = '<span>' + item.name + ' ' + item.price*item.qty + '$' + ' (Cantidad: ' + item.qty +')</span>';
         div.appendChild(btndelete);    
 
         carList.appendChild(div);
@@ -215,10 +215,10 @@ function updateBar(){
 document.getElementsByName('pay').forEach(function(radioInput){
     radioInput.addEventListener('click',function(){
         switch(radioInput.value){
-            case 'card':
+            case 'tarjeta':
                 document.getElementById('cardForm').style.display = 'flex';         
                 break;
-            case 'cash':
+            case 'efectivo':
                 document.getElementById('cardForm').style.display = 'none';
                 break;
         }
@@ -242,7 +242,7 @@ function submitOrder(){
     let cardNumber = null;
     let cardExpiration = null;
 
-    if(pay == 'card'){
+    if(pay == 'tarjeta'){
         const cardInputs = document.querySelectorAll('#cardForm input');
         cardNumber = cardInputs[0].value;
         cardExpiration = cardInputs[1].value;
@@ -272,7 +272,8 @@ function submitOrder(){
         if(data.success){
             alert("Order submitted!");
         }else{
-            alert("Error sending order: " + data.message);
+            alert("Error al enviar la orden: " + data.message);
+            window.location.href = "../../index.html"
         }
     });
 }

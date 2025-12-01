@@ -6,7 +6,7 @@
     header("Content-Type: application/json");
 
     if(!isset($_SESSION['user']["id"]) || $_SESSION['user']["role"] !== "admin"){
-        echo json_encode(["success" => false, "message" => "User not authorized."]);
+        echo json_encode(["success" => false, "message" => "Usuario no autorizado."]);
         exit;
     }
 
